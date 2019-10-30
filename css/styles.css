@@ -1,0 +1,747 @@
+﻿/* Reset CSS */
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Tags padronizadas */
+label, p {
+    font-family: Roboto, Tahoma, Verdana;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 0.8px;
+}
+
+h1, .menu_itens, .menu_cardapio_itens, .submenu_itens {
+    font-family: "Segoe UI", Verdana;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+h2, h3 { 
+    font-family: Tahoma, Verdana;
+    font-size: 16px;
+    color: black;
+}
+
+a {
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    width: inherit;
+    height: inherit;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Classes padronização */
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.conteudo {
+    width: 1200px;
+    height: inherit;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-25 {
+    margin-bottom: 25px;
+}
+
+.margin-bottom-70 {
+    margin-bottom: 70px;
+}
+
+.section_title {
+    text-align: center; 
+    font-size: 25px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.responsive_img {
+    width: 100%;
+    height: auto;
+}
+
+.preco {
+    font-size: 20px; 
+    text-align: center;
+    margin-bottom: 20px !important; 
+    margin-top: 20px; 
+}
+
+.nothing { 
+    width: 0px;
+    height: 0px;
+    visibility: hidden;
+}
+
+/* CSS para desktop */
+@media screen and (min-device-width: 1024px) {
+    header {
+        width: 100%;
+        height: 75px;
+        background-color: #d32f2f ;
+        position: fixed;
+        z-index: 99;
+    }
+    
+    header .conteudo {
+        background-color: #d32f2f;
+    }
+    
+    #area_logo {
+        width: 130px;
+        height: inherit;
+        margin-right: 105px;
+        float: left;
+    }
+    
+    #logo {
+        width: 80px;
+        height: 70px;
+        margin-left: 28px;
+    }
+    
+    #area_menu {
+        width: 480px;
+        height: inherit;
+        margin-right: 75px;
+        float: left;
+        padding-top: 8px;
+        box-sizing: border-box;
+    }
+    
+    #menu {
+        width: inherit;
+        height: inherit;
+    }
+    
+    .menu_itens, .menu_cardapio_itens, .submenu_itens {
+        width: 150px;
+        height: 25px;
+        float: left;
+        list-style: none;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        padding-top: 2.5px;
+        box-sizing: border-box;
+        background-color: #d32f2f;
+        color: #fff;
+        transition: 0.3s;
+    }
+    
+    .menu_itens:hover, .menu_cardapio_itens:hover, .submenu_itens:hover, #sistema_interno:hover, #baixe_app:hover {
+        background-color: #171717;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+
+    .menu_cardapio_itens:hover, .submenu_itens:hover {
+        background-color: #d32f2f;
+    }
+    
+    #area_login {
+        width: 410px;
+        height: inherit;
+        float: left;
+        box-sizing: border-box;
+        padding-top: 13px;
+    }
+    
+    #area_login label {
+        font-size: 14px;
+        font-family: Roboto, Tahoma;
+        margin-right: 50px;
+        font-style: italic;
+    }
+    
+    #lgn, #pass {
+        width: 170px;
+        height: inherit;
+        float: left;
+        box-sizing: border-box;
+        padding-top: 3px;
+    }
+    
+    #pass {
+        width: 165px;
+    }
+    
+    .txt {
+        width: 150px;
+        height: 16px;
+        background-color: #fff;
+        border: solid 0.5px #000;
+        color: #000;
+    }
+    
+    #pass .txt {
+        margin-right: 10px;
+    }
+    
+    .btn {
+        width: 60px;
+        height: 25px;
+        background-color: white;
+        border: none;
+        color: black;
+        transition: .3s;
+        float: left;
+        margin-top: 15px;
+        padding-top: 3px;   
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        background-color: #171717;
+        color: white;
+        transition: .6s;
+    }
+    
+    .slider {
+        width: 100%;
+        height: 400px;
+        box-sizing: border-box;
+        padding-top: 75px;
+    }
+
+    .carousel-cell img {
+        height: 313px;
+        position: relative;
+    }
+
+    .slider_texts {
+        width: 100%;
+        height: 313px;
+        background-color: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .slider_texts h2 {
+        font-size: 40px;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: 1px;
+        margin-top: 110px;  
+        margin-left: 120px;
+        margin-bottom: 10px; 
+    }
+
+    .slider_texts h3, .slider_texts a {
+        font-family: "Segoe UI";
+        font-size: 20px;
+        font-style: italic;
+        font-weight: normal;
+        color: #fff;
+        letter-spacing: 0.8px;
+        margin-left: 150px;
+    }
+    
+    #loja {
+        width: 100%;
+        height: 680px;
+    }
+
+    #contato {
+        width: 100%;
+        height: 1035px;
+    }
+
+    #contato .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+    
+    #area_menu_cardapio {
+        width: 200px;
+        height: inherit;
+        box-sizing: border-box;
+        float: left;
+    }
+    
+    .menu_cardapio_itens, .submenu_itens {
+        width: inherit;
+        height: 40px;
+        float: none;
+        margin: 0px;
+        font-size: 20px;
+        box-sizing: border-box;
+        padding-top: 4px;  
+        border-bottom: black solid 1px;
+        font-family: "Segoe UI Light", Tahoma;
+        background-color: white;
+        color: black;
+    }
+    
+    .submenu {
+        width: 200px;
+        min-height: 40px;
+        height: auto;
+        color: black;
+        background-color: azure;
+        margin-left: 200px;
+        margin-top: -31px;
+        position: relative;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    
+    .menu_cardapio_itens:hover > .submenu {
+        visibility: visible;
+        opacity: 1;
+        transition: 0.6s;
+    }
+    
+    #produtos {
+        width: 1000px;
+        min-height: inherit;
+        height: auto;
+        float: left;
+        box-sizing: border-box;
+        padding-top: 25px;
+        padding-left: 25px;
+    }
+    
+    .produto {
+        width: 300px;
+        min-height: 326px;
+        height: auto;
+        float: left;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0.5px 0.5px 2.5px;
+    }
+    
+    .foto_produto, .informacoes_produto {
+        width: inherit;
+        min-height: 162px;
+        height: auto;
+        text-align: center;
+    }
+
+    .informacoes_produto {
+        box-sizing: border-box;
+        padding-top: 17px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        text-align: left;
+    }
+
+    .informacoes_produto p {
+        font-family: Roboto, 'Segoe UI', Tahoma;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .informacoes_produto a {
+        font-family: Roboto, 'Segoe UI', Tahoma;
+        letter-spacing: 0.7px;
+        font-weight: bold;
+        color: #fff;
+        padding: 5px;
+        box-sizing: border-box;
+        background-color: #171717;
+        margin-left: 186px;
+        transition: .3s;
+    }
+
+    .informacoes_produto a:hover {
+        background-color: #d1d1d1;
+        color: #000;
+        cursor: pointer;
+        transition: .6s;
+    }
+    
+    .area_redes_sociais {
+        width: 120px;
+        height: 390px;
+        background-color: white;
+        position: fixed;
+        margin-left: 1230px;
+        margin-top: -150px;
+    }
+
+    #contato .area_redes_sociais,
+    #curiosidades .area_redes_sociais,
+    #filiais .area_redes_sociais,
+    #produto_mes .area_redes_sociais,
+    #promocoes .area_redes_sociais, 
+    #sobre .area_redes_sociais {
+        margin-top: 160px;
+    }
+
+    .redes_sociais {
+        width: inherit;
+        height: 120px;
+        float: left;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    footer {
+        width: 100%;
+        height: 70px;
+        background-color: #171717;
+        overflow: hidden;
+    }
+    
+    #administracao {
+        width: 200px;
+        height: inherit;
+        box-sizing: border-box;
+        padding-top: 10px;
+        padding-left: 20px; 
+        margin-right: 250px;
+        float: left;
+    }
+    
+    #sistema_interno, #baixe_app {
+        width: 160px;
+        height: 50px;
+        background-color: #171717;
+        color: #fff;
+        box-sizing: border-box;
+        padding-top: 12px;
+        transition: 0.3s;
+    }
+    
+    #endereco {
+        width: 490px;
+        height: inherit;
+        padding-top: 35px;
+        box-sizing: border-box;
+        float: left;
+        text-align: center;
+    }
+    
+    #endereco p {
+        font-family: Roboto, "Segoe UI", Tahoma;
+        font-size: 17px;
+    }
+    
+    #imagem_app {
+        width: 70px;
+        height: inherit;
+        float: left;
+    }
+    
+    #area_baixe_app {
+        width: 180px;
+        height: inherit;
+        box-sizing: border-box;
+        padding-top: 10px;
+        float: left;
+    }
+
+    #sistema_interno:hover, #baixe_app:hover {
+        background-color: #272727;
+    }
+
+    #sistema_interno h1, #baixe_app h1 {
+        font-size: 18.5px;
+    }
+
+    #dados_frajolas, #dados_mensagem {
+        width: 400px;
+        height: 880px;
+        padding-top: 250px;
+        box-sizing: border-box;
+        float: left;
+    } 
+
+    #dados_frajolas p {
+        font-size: 20px;
+        color: black;
+        text-align: center;
+    }
+
+    #dados_mensagem {
+        width: 800px;
+        padding-top: 30px;
+    }
+
+    .input {
+        width: 100%;
+        height: 55px;
+        margin-bottom: 20px;
+    }
+
+    .input label {
+        color: black;
+    }
+
+    .input .txt {
+        width: 100%;
+        height: 25px;
+        background-color: transparent;
+        color: black;
+        font-size: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+        resize: none;
+        font-size: 22px;
+    }
+
+    #mensagem .input {
+        height: 136px;
+    }
+
+    input[data-type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 10px;
+    }
+
+    .label_radio_title {
+        margin-right: 100%;
+    }
+
+    .label_radio {
+        font-size: 20px;
+    }
+
+    .input .btn {
+        width: 100%;
+        height: 30px;
+        margin-top: 0px;
+        background-color: #171717;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .input .btn:hover {
+        background-color: #d1d1d1;
+        color: #000;
+    }
+
+    .icone_download {
+        width: 50px;
+        height: 50px;
+        margin-top: 12px;
+        margin-left: 10px;
+    }
+
+    #filiais {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #filiais .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    iframe {
+        width: 100%; 
+        height: 500px;
+        border: 0;
+        margin-top: 25px;
+    }
+
+    #informacoes_filiais {
+        width: inherit;
+        min-height: 100px;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    #informacoes_filiais p {
+        font-family: Roboto, "Segoe UI", Tahoma;
+        color: #000;
+        text-align: center;
+    }
+
+    #informacoes_filiais .input {
+        height: 30px;
+        margin: 0px;
+        text-align: center;
+        padding-top: 10px;
+        box-sizing: border-box;
+    }
+
+    #sobre {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #sobre .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    #promocoes {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #promocoes .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    #curiosidades {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #curiosidades .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    #produto_mes {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #produto_mes .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    #promocoes #area_menu_cardapio {
+        width: 200px;
+        height: inherit;
+        box-sizing: border-box;
+        float: left;
+        margin-top: 30px;
+    }
+
+    #curiosidades {
+        width: 100%;
+        min-height: 800px;
+        height: auto;
+    }
+
+    #curiosidades .conteudo {
+        padding-top: 90px;
+        box-sizing: border-box;
+    }
+
+    .curiosidade, .sobre {
+        width: 100%;
+        min-height: 19.25px;
+        height: auto;
+        overflow: hidden;
+        margin-bottom: 80px;
+    }
+
+    .texto_curiosidade, .texto_sobre {
+        width: 850px;
+        min-height: 19.25px; 
+        height: auto;
+        float: left;
+        padding-top: 10px;
+        box-sizing: border-box;
+    }
+
+    #curiosidades p, #sobre p {
+        width: 100%;
+        min-height: 19.25px; 
+        height: auto;
+        color: #000;
+        text-align: center;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    #sobre_2 .texto_sobre {
+        width: 90%;
+        float: none;
+    }
+
+    #curiosidades .section_title, #sobre .section_title {
+        margin-bottom: 25px;
+    }
+
+    .curiosidades_imagem, .sobre_imagem {
+        width: 350px;
+        height: auto;
+        float: left;
+        text-align: center;
+    }
+
+    .curiosidades_imagem img, .sobre_imagem img {
+        width: 80%;
+    }
+
+    #imagem_curiosidade_2 img {
+        width: 100%;    
+    }
+
+    #texto_curiosidade_2 {
+        padding-top: 30px;
+    }
+
+    #produto_mes .produto {
+        min-height: 307px;
+        float: none;
+        margin: 0 auto;
+        margin-top: 25px;
+        margin-bottom: 50px;
+    }
+
+    #produto_mes .informacoes_produto {
+        min-height: 85px;
+    }
+
+    #texto_produto_mes {
+        width: 100%;
+        min-height: 19.25px;
+        height: auto;
+    }
+
+    #texto_produto_mes p {
+        width: 60%;
+        min-height: 19.25px; 
+        height: auto;
+        color: #000;
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}
+
+/* CSS para mobile */
+@media screen and (max-device-width: 720px) {
+
+}

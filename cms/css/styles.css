@@ -1,0 +1,400 @@
+/* Importação fonte Roboto */
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap'); 
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Classes padronização */
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content {
+    width: 900px;
+}
+
+/* Tags padronizadas */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased !important;
+
+    display: flex; 
+    flex-direction: column; 
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p {
+    letter-spacing: 0.6px;
+}
+
+/* CSS Desktop */
+@media screen and (min-device-width: 1024px) {
+
+    /* Cabeçalho */
+    #cms-header {
+        height: 110px;
+        background: #171717;
+    }
+
+    #cms-header .content {
+        width: 800px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #cms-header h1 {
+        font-size: 30px;
+        color: #fff;
+        letter-spacing: 1px;        
+        padding-top: 38px;
+        margin-right: 20px;
+    }
+
+    #cms-header img {
+        width: 90px;
+        height: auto;
+        margin-top: 3px;
+    }
+
+    /* Menu */
+    #cms-menu { 
+        min-height: 150px;
+        background: #ddd;
+    }
+
+    #cms-menu .content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #cms-menu ul {
+        width: 600px;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #cms-menu li {
+        width: 190px;
+    }
+    
+    #cms-menu li:hover {
+        background: #ccc;
+    }
+
+    #cms-menu li a {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #cms-menu li img {
+        width: 87px;
+        margin-bottom: 5px;
+    }
+    
+    #cms-menu .content div {
+        width: 300px;
+        padding: 20px;
+    }
+
+    #cms-menu .content header {
+        text-align: center;
+        margin-bottom: 68px;
+    }
+    
+    #cms-menu .content header strong {
+        font-size: 18px;
+    }
+
+    #cms-menu .content footer {
+        text-align: right;
+        cursor: pointer;
+    } 
+
+    /* Rodapé */
+    #cms-footer {
+        min-height: 70px;
+        background: #000;
+        margin-top: auto;
+        padding-top: 23.5px;
+
+        font-size: 20px;
+        text-align: center; 
+        color: white;
+    }
+
+    #cms-footer strong:hover {
+        color: #ddd;
+    }
+
+    /* Conteúdo principal */
+    #cms-main-content {
+        padding-top: 25px;
+        padding-bottom: 35px;
+    }
+    
+    #cms-main-content h1 {
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* ----> Página Inicial */
+    #cms-main-content #welcome p {
+        text-align: center;
+    }
+
+    /* ----> Administração de Conteúdo e Administração de Usuários */
+    #cms-main-content #handle-content ul,
+    #cms-main-content #handle-users ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+    }
+
+    #cms-main-content #handle-content ul li,
+    #cms-main-content #handle-users ul li {
+        min-height: 160px; 
+        list-style: none;
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    #cms-main-content #handle-content ul li:hover,
+    #cms-main-content #handle-users ul li:hover {
+        background: #ccc;
+    }
+
+    #cms-main-content #handle-content ul li a,
+    #cms-main-content #handle-users ul li a {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #cms-main-content #handle-content ul li img,
+    #cms-main-content #handle-users ul li img {
+        width: 90px;
+        margin-bottom: 15px;
+    }
+
+    #cms-main-content #handle-content ul li strong,
+    #cms-main-content #handle-users ul li strong {
+        font-size: 20px;
+    }
+
+    /* ----> Administração Fale Conosco */
+
+    /* ------> Modal */
+    #modal-container {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        display: none;
+    }
+
+    #modal-container #modal {
+        width: 600px;
+        margin: 0 auto;
+        margin-top: 10vh;
+    }
+
+    #modal-container #modal header {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        padding: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    #modal-container #modal header img {
+        width: 16px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    #modal-container #modal #modal-data table {
+        width: 100%;
+        height: 100%;
+        border-spacing: 0px;
+        background: #fff;
+        border: none;
+    }
+
+    #modal-container #modal #modal-data table td {
+        padding: 15px;
+    }
+
+    #cms-main-content #handle-contact form {
+        width: 100%;
+        display: flex;
+        flex-direction: row; 
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    /* ------> Fale Conosco, Administração de Níveis e de Usuários */
+    #cms-main-content #handle-contact form select,
+    #cms-main-content #handle-users form select {
+        width: 500px;
+        padding: 4px;
+        margin-right: 15px;
+        font-size: 16px;
+        border-radius: 2px;
+    }
+
+    #cms-main-content #handle-contact form input[type="submit"] {
+        width: 100px;
+        margin-right: 10px;
+    }
+
+    #cms-main-content #handle-contact table,
+    #cms-main-content #handle-users table {
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;      
+    }
+
+    #cms-main-content #handle-contact table tr,
+    #cms-main-content #handle-users table tr {
+        border: 1px solid #999;
+    }
+
+    #cms-main-content #handle-contact table #tbl-header,
+    #cms-main-content #handle-users table #tbl-header {
+        border: 1px solid #171717 !important;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #cms-main-content #handle-contact table td,
+    #cms-main-content #handle-users table td {
+        width: 180px;
+        padding: 10px;
+        letter-spacing: 0.25px;
+    }
+
+    #cms-main-content #handle-contact table td a img,
+    #cms-main-content #handle-users table td a img {
+        width: 15px;
+        vertical-align: middle;
+        margin-top: -1px;
+        cursor: pointer;
+    }
+
+    /* ----> Administração de Usuários */
+    #cms-main-content #handle-users h2 {
+        font-size: 24px;
+        text-align: center;
+        font-weight: normal;
+        margin-bottom: 20px;
+    }
+
+    #cms-main-content #handle-users form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+
+    #cms-main-content #handle-users form input[type="text"],
+    #cms-main-content #handle-users form input[type="email"],
+    #cms-main-content #handle-users form input[type="password"] {
+        width: 100%;
+        padding: 4px;
+        font-size: 16px;
+        border: 1px solid #999;
+        border-radius: 2px;
+        margin-bottom: 15px;
+    }
+
+    #cms-main-content #handle-users form div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    #cms-main-content #handle-users form div input {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #999;
+        border-radius: 2px;
+        vertical-align: middle;
+        margin-top: -3px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    #cms-main-content #handle-users form div label {
+        margin-right: 30px;
+        cursor: pointer;
+    }
+
+    #cms-main-content #handle-users form div label span {
+        margin: 0.5px 10px 0;
+        user-select: none;
+    }
+
+    #cms-main-content #handle-users form input[type="submit"] {
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    #cms-main-content #handle-users table .tbl-enable-disable a img {
+        width: auto;
+        max-height: 20px;
+    }
+
+    #cms-main-content #handle-users form select {
+        width: 100%;
+        padding: 3px;
+        margin-bottom: 15px;
+    }
+
+    #cms-main-content #handle-users form img {
+        width: 28px;
+        margin-left: -32px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    #cms-main-content #handle-users table input[type="password"],
+    #cms-main-content #handle-users table input[type="text"] {
+        font-size: 16px;
+        border: none;
+        text-align: center;
+        cursor: pointer;
+    }
+}
