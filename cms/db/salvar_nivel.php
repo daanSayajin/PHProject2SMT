@@ -18,9 +18,9 @@
     if (isset($_POST['btn_submit'])) {
 
         $name = $_POST['txt_name'];
-        $adm_content = isset($_POST['chk_content']) ? str_replace('on', 1, $_POST['chk_content']) : 0;
-        $adm_contact = isset($_POST['chk_contact']) ? str_replace('on', 1, $_POST['chk_contact']) : 0;
-        $adm_users = isset($_POST['chk_users']) ? str_replace('on', 1, $_POST['chk_users']) : 0;
+        $adm_content = isset($_POST['chk_content']) ? 1 : 0;
+        $adm_contact = isset($_POST['chk_contact']) ? 1 : 0;
+        $adm_users = isset($_POST['chk_users']) ? 1 : 0;
         
         $conexao = conexao_mysql();
 
