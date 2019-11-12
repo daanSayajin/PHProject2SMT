@@ -253,6 +253,11 @@ p {
 
     #modal-container #modal #modal-data table td {
         padding: 15px;
+        text-align: center;
+    }
+
+    #modal-container #modal #modal-data table td img {
+        max-width: 560px;
     }
 
     #cms-main-content #handle-contact form {
@@ -279,33 +284,38 @@ p {
     }
 
     #cms-main-content #handle-contact table,
-    #cms-main-content #handle-users table {
+    #cms-main-content #handle-users table,
+    #cms-main-content #handle-content table {
         width: 100%;
         text-align: center;
         border-collapse: collapse;      
     }
 
     #cms-main-content #handle-contact table tr,
-    #cms-main-content #handle-users table tr {
+    #cms-main-content #handle-users table tr,
+    #cms-main-content #handle-content table tr {
         border: 1px solid #999;
     }
 
     #cms-main-content #handle-contact table #tbl-header,
-    #cms-main-content #handle-users table #tbl-header {
+    #cms-main-content #handle-users table #tbl-header,
+    #cms-main-content #handle-content table #tbl-header {
         border: 1px solid #171717 !important;
         font-size: 18px;
         font-weight: bold;
     }
 
     #cms-main-content #handle-contact table td,
-    #cms-main-content #handle-users table td {
+    #cms-main-content #handle-users table td, 
+    #cms-main-content #handle-content table td {
         width: 180px;
         padding: 10px;
         letter-spacing: 0.25px;
     }
 
     #cms-main-content #handle-contact table td a img,
-    #cms-main-content #handle-users table td a img {
+    #cms-main-content #handle-users table td a img,
+    #cms-main-content #handle-content table td a img {
         width: 15px;
         vertical-align: middle;
         margin-top: -1px;
@@ -333,6 +343,12 @@ p {
         align-items: center;
     }
 
+    #cms-main-content #handle-content form div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
     #cms-main-content #handle-users form input[type="text"],
     #cms-main-content #handle-users form input[type="email"],
     #cms-main-content #handle-users form input[type="password"],
@@ -351,8 +367,9 @@ p {
     }
 
     #cms-main-content #handle-content form label#thumbnail {
-        width: 100%;
-        height: 150px;
+        width: 500px;
+        margin-left: 20px;
+        margin-top: 3px;
         margin-bottom: 20px;
         border: 2px dashed #ddd;
         background-size: contain;
@@ -409,6 +426,15 @@ p {
         max-height: 20px;
     }
 
+    #cms-main-content #handle-content table .tbl-enable-disable a img {
+        width: auto;
+        max-height: 20px;
+    }
+
+    #cms-main-content #handle-content table td img.preview {
+        max-height: 50px;
+    }
+
     #cms-main-content #handle-users form select {
         width: 100%;
         padding: 3px;
@@ -419,14 +445,6 @@ p {
         width: 28px;
         margin-left: -32px;
         position: absolute;
-        cursor: pointer;
-    }
-
-    #cms-main-content #handle-users table input[type="password"],
-    #cms-main-content #handle-users table input[type="text"] {
-        font-size: 16px;
-        border: none;
-        text-align: center;
         cursor: pointer;
     }
 }

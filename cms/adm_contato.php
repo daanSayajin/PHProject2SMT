@@ -150,7 +150,7 @@
             /* Hide modal on press esc */
             $(document).keyup(function(event) {
                 if (event.key === "Escape") 
-                    $("#container").fadeOut(100);
+                    $("#modal-container").fadeOut(100);
             });
 
             /* Ajax function to show modal data */

@@ -7,12 +7,12 @@
 
     if (!isset($_SESSION['username'])) {
         header('location:../../'); 
-        exit();
+        return;
     }
 
     if (!hasPermission('adm_usuarios')) {
         header('location:../'); 
-        exit();
+        return;
     } 
 
     if (isset($_POST['btn_submit'])) {

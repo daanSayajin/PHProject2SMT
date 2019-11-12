@@ -7,12 +7,12 @@
 
     if (!isset($_SESSION['username'])) {
         header('location:../../'); 
-        exit();
+        return;
     }
 
     if (!hasPermission('adm_contato')) {
         header('location:../'); 
-        exit();
+        return;
     } 
 
     if (isset($_GET['action']) && strtolower($_GET['action']) === 'delete') {
