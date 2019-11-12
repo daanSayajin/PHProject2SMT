@@ -20,7 +20,7 @@
         $level = $_POST['slt_level'];
         $name = $_POST['txt_name'];
         $email = $_POST['txt_email'];
-        $password = $_POST['txt_password'];
+        $password = hash('md5', $_POST['txt_password']);
 
         $conexao = conexao_mysql();
 

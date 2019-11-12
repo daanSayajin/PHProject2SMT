@@ -7,7 +7,7 @@
 
     if (isset($_POST['btn_submit'])) {
         $email = $_POST['txt_email'];
-        $password = $_POST['txt_password'];
+        $password = hash('md5', $_POST['txt_password']);
     
         $conexao = conexao_mysql();
         $sql = 'SELECT * FROM usuarios;';

@@ -10,6 +10,25 @@
 
     $button = 'Cadastrar';
     $conexao = conexao_mysql();
+
+    
+    if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
+        $id = $_GET['id'];
+
+        $conexao = conexao_mysql();
+        $sql = 'SELECT * FROM curiosidades WHERE id=' . $id . ';';
+        $select = mysqli_query($conexao, $sql);
+
+        if ($rs_curiosity = mysqli_fetch_array($select)) {
+            $curiosity = $rs_curiosity['texto'];
+            $image = $rs_curiosity['imagem'];
+        }
+
+        $button = "Editar";
+
+        if (!mysqli_query($conexao, $sql))
+            echo("<script>alert('ERRO: Falha ao executar o script no banco de dados!');</script>");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +81,13 @@
                     Curiosidades
                 </h2>
 
-                <form name="frm_curiosities" enctype="multipart/form-data" method="POST" action="./db/salvar_curiosidade.php<?php if (isset($id)) echo('?action=edit&id=' . $id); ?>">
+                <form name="frm_curiosities" enctype="multipart/form-data" method="POST" action="./db/salvar_curiosidade.php<?php if (isset($id)) echo('?action=edit&id=' . $id . '&image=' . $image); ?>">
                     <div>
                         <textarea name="txt_curiosity" placeholder="Curiosidade*" required><?=@$curiosity?></textarea>
                         
-                        <label id="thumbnail">
+                        <label id="thumbnail" style="background-image: url('db/uploads/<?=@$image?>'); border: <?php if (isset($image)) { echo('none'); } ?>;">
                             <input type="file" name="fl_curiosity" id="img-curiosity" accept="image/png, image/jpeg, image/jpg" />
-                            <img src="./img/camera.svg" id="camera-icon" alt="Select icon" />
+                            <img src="./img/camera.svg" id="camera-icon" alt="Select icon" style="display: <?php if (isset($image)) { echo('none'); } ?>;" />
                         </label>
                     </div>
                     

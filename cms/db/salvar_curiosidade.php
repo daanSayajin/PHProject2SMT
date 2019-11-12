@@ -5,6 +5,9 @@
     if (!file_exists(include_once('../include/permission.php')))
         include_once('../include/permission.php');
 
+    if (!file_exists(include_once('../include/upload.php')))
+        include_once('../include/upload.php');
+
     if (!isset($_SESSION['username'])) {
         header('location:../../'); 
         return;
@@ -19,41 +22,58 @@
 
         $curiosity = addslashes($_POST['txt_curiosity']);
 
+        if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
+            if ($_FILES['fl_curiosity']['name'] === '' && $_FILES['fl_curiosity']['size'] === 0) {
+                $sql = "UPDATE curiosidades 
+                        SET texto='".$curiosity."'
+                        WHERE id=" . $_GET['id'] . ';';  
+            } else {
 
+                $encryptedFilename = uploadImage('fl_curiosity', 'uploads/');
 
-        $filename = pathinfo($_FILES['fl_curiosity']['name'], PATHINFO_FILENAME);
-        $ext = pathinfo($_FILES['fl_curiosity']['name'], PATHINFO_EXTENSION);
+                if (!$encryptedFilename)
+                    echo("
+                        <script>
+                            alert('ERRO: Não foi possível enviar o arquivo para o servidor!'); 
+                            location.href='../curiosidades.php';
+                        </script>");
+                else
+                    $sql = "UPDATE curiosidades 
+                        SET texto='".$curiosity."',
+                        imagem='".$encryptedFilename."'
+                        WHERE id=" . $_GET['id'] . ';';
+            }
+        } else {
+            if ($_FILES['fl_curiosity']['name'] === '' && $_FILES['fl_curiosity']['size'] === 0) {
+                $sql = "INSERT INTO curiosidades (texto, status)
+                        VALUES ('".$curiosity."',
+                                1);";
+            } else {
 
-        $encryptedFilename = hash('md5', uniqid(time() . $filename));
-        $encryptedFilename = $encryptedFilename . '.' . $ext;
-        $tempFile = $_FILES['fl_curiosity']['tmp_name'];
-        
-        if (!move_uploaded_file($tempFile, 'uploads/' . $encryptedFilename)) {
-            echo("
-                <script>
-                    alert('ERRO: Não foi possível enviar o arquivo para o servidor!'); 
-                    location.href='../curiosidades.php';
-                </script>"); 
+                $encryptedFilename = uploadImage('fl_curiosity', 'uploads/');
 
-            return;
+                if (!$encryptedFilename)
+                    echo("
+                        <script>
+                            alert('ERRO: Não foi possível enviar o arquivo para o servidor!'); 
+                            location.href='../curiosidades.php';
+                        </script>");
+                else 
+                    $sql = "INSERT INTO curiosidades (texto, imagem, status)
+                            VALUES ('".$curiosity."',
+                                    '".$encryptedFilename."',
+                                    1);";
+            }
         }
 
         $conexao = conexao_mysql();
 
-        if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
-            $sql = "UPDATE curiosidades 
-                    SET texto='".$curiosity."',
-                        adm_conteudo=".$encryptedFilename.",
-                        WHERE id=" . $_GET['id'] . ';';
-        } else {
-            $sql = "INSERT INTO curiosidades (texto, imagem, status)
-                    VALUES ('".$curiosity."',
-                            '".$encryptedFilename."',
-                            1);";
-        }   
+        if (mysqli_query($conexao, $sql)) {
+            if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit' && $_FILES['fl_curiosity']['name'] !== '' && $_FILES['fl_curiosity']['size'] !== 0) 
+                unlink('uploads/' . $_GET['image']);  
 
-        if (mysqli_query($conexao, $sql))
             header('location:../curiosidades.php');
+        }
         else
             echo("<script>alert('ERRO: Falha ao executar o script no banco de dados!');</script>");
     }
