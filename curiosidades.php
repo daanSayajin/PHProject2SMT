@@ -47,21 +47,40 @@
                     $select = mysqli_query($conexao, $sql);
 
                     while ($rs_curiosity = mysqli_fetch_array($select)) { 
-                        if ($rs_curiosity['status']) {?>
-                            <div class="curiosidade">
-                                <!-- Texto da curiosidade -->
-                                <div class="texto_curiosidade">
-                                    <p>
-                                        <?=$rs_curiosity['texto']?>    
-                                    </p>
-                                </div>
+                        if ($rs_curiosity['status']) {
+                            if ($rs_curiosity['posicao_texto'] === 'esquerda') { ?>
+                                <div class="curiosidade">
+                                    <!-- Texto da curiosidade -->
+                                    <div class="texto_curiosidade" <?php if (!$rs_curiosity['imagem']) { echo("style='width: 100%'"); } ?>>
+                                        <p>
+                                            <?=$rs_curiosity['texto']?>    
+                                        </p>
+                                    </div>
 
-                                <!-- Imagem da curiosidade -->
-                                <div class="curiosidades_imagem">
-                                    <img src="cms/db/uploads/<?=$rs_curiosity['imagem']?>" class="responsive_img" alt="Pizzaiolo Ricardo">
+                                    <!-- Imagem da curiosidade -->
+                                    <?php if ($rs_curiosity['imagem']) { ?>
+                                        <div class="curiosidades_imagem">
+                                            <img src="cms/db/uploads/<?=$rs_curiosity['imagem']?>" class="responsive_img" alt="Pizzaiolo Ricardo">
+                                        </div>
+                                    <?php } ?>
                                 </div>
-                            </div>
-                    <?php }} ?>
+                    <?php } else { ?>
+                                <div class="curiosidade">
+                                    <!-- Imagem da curiosidade -->
+                                    <?php if ($rs_curiosity['imagem']) { ?>
+                                        <div class="curiosidades_imagem">
+                                            <img src="cms/db/uploads/<?=$rs_curiosity['imagem']?>" class="responsive_img" alt="Pizzaiolo Ricardo">
+                                        </div>
+                                    <?php } ?>
+
+                                    <!-- Texto da curiosidade -->
+                                    <div class="texto_curiosidade" <?php if (!$rs_curiosity['imagem']) { echo("style='width: 100%'"); } ?>>
+                                        <p>
+                                            <?=$rs_curiosity['texto']?>    
+                                        </p>
+                                    </div>
+                                </div>
+                    <?php }}} ?>
                 </section>
             </div>
         </div>

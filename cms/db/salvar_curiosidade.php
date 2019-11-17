@@ -21,11 +21,13 @@
     if (isset($_POST['btn_submit'])) {
 
         $curiosity = addslashes($_POST['txt_curiosity']);
+        $text_position = $_POST['slt_text_position'];
 
         if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
             if ($_FILES['fl_curiosity']['name'] === '' && $_FILES['fl_curiosity']['size'] === 0) {
                 $sql = "UPDATE curiosidades 
-                        SET texto='".$curiosity."'
+                        SET texto='".$curiosity."',
+                        posicao_texto='".$text_position."'
                         WHERE id=" . $_GET['id'] . ';';  
             } else {
 
@@ -40,13 +42,15 @@
                 else
                     $sql = "UPDATE curiosidades 
                         SET texto='".$curiosity."',
-                        imagem='".$encryptedFilename."'
+                        imagem='".$encryptedFilename."',
+                        posicao_texto='".$text_position."'
                         WHERE id=" . $_GET['id'] . ';';
             }
         } else {
             if ($_FILES['fl_curiosity']['name'] === '' && $_FILES['fl_curiosity']['size'] === 0) {
-                $sql = "INSERT INTO curiosidades (texto, status)
+                $sql = "INSERT INTO curiosidades (texto, posicao_texto, status)
                         VALUES ('".$curiosity."',
+                                '".$text_position."',
                                 1);";
             } else {
 
@@ -59,9 +63,10 @@
                             location.href='../curiosidades.php';
                         </script>");
                 else 
-                    $sql = "INSERT INTO curiosidades (texto, imagem, status)
+                    $sql = "INSERT INTO curiosidades (texto, imagem, posicao_texto, status)
                             VALUES ('".$curiosity."',
                                     '".$encryptedFilename."',
+                                    '".$text_position."',
                                     1);";
             }
         }

@@ -115,7 +115,7 @@
                                     <img src="./img/remove.png" alt="Remover" title="Remover" />
                                 </a>
 
-                                <a href="#" class="handle-modal-view" onclick="showModalData(<?=$rs_contato['id']?>);">
+                                <a href="#" class="handleModalView" onclick="showModalData(<?=$rs_contato['id']?>);">
                                     <img src="./img/search.png" alt="Visualizar"  title="Visualizar" />
                                 </a>
                             </td>
@@ -135,7 +135,7 @@
         <script>
             /* Show modal */
             $(document).ready(function() {
-                $('.handle-modal-view').click(function() {
+                $('.handleModalView').click(function() {
                     $('#modal-container').slideDown(250);
                 })
             });
@@ -145,6 +145,12 @@
                 $('#modal-close').click(function() {
                     $('#modal-container').fadeOut(100);
                 })
+            });
+
+            /* Hide modal if you click anything other than it */
+            $(document).click(function(event) {
+                if (!$(event.target).closest('#modal, .handleModalView').length) 
+                    $("#modal-container").slideUp(100);
             });
 
             /* Hide modal on press esc */

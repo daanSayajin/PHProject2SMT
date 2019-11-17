@@ -205,6 +205,14 @@ p {
         font-size: 20px;
     }
 
+    #cms-main-content #handle-content form select {
+        width: 100%;
+        padding: 4px;
+        margin-bottom: 12px;
+        font-size: 16px;
+        border-radius: 2px;
+    }
+
     /* ----> Administração Fale Conosco */
 
     /* ------> Modal */
@@ -221,16 +229,16 @@ p {
 
     #modal-container #modal {
         width: 600px;
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
         margin: 0 auto;
-        margin-top: 10vh;
+        margin-top: 3vh;
     }
 
     #modal-container #modal header {
         width: 100%;
         background: #fff;
         border: 1px solid #ccc;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
         padding: 3px;
         display: flex;
         flex-direction: column;
@@ -258,6 +266,11 @@ p {
 
     #modal-container #modal #modal-data table td img {
         max-width: 560px;
+    }
+
+    #modal-container #modal #modal-data table td iframe {
+        width: 560px;
+        height: 200px;
     }
 
     #cms-main-content #handle-contact form {
@@ -352,12 +365,19 @@ p {
     #cms-main-content #handle-users form input[type="text"],
     #cms-main-content #handle-users form input[type="email"],
     #cms-main-content #handle-users form input[type="password"],
+    #cms-main-content #handle-content form input[type="text"],
     #cms-main-content #handle-content form textarea {
         width: 100%;
         padding: 4px;
         font-size: 16px;
         border: 1px solid #999;
         border-radius: 2px;
+        margin-bottom: 15px;
+    }
+
+    #cms-main-content #handle-content form iframe {
+        width: 100%;
+        height: 200px;
         margin-bottom: 15px;
     }
 
@@ -415,10 +435,15 @@ p {
     }
 
     #cms-main-content #handle-users form input[type="submit"],
-    #cms-main-content #handle-content form input[type="submit"] {
+    #cms-main-content #handle-content form input[type="submit"],
+    #cms-main-content #handle-content form input[type="button"] {
         width: 100%;
         height: 30px;
         cursor: pointer;
+    }
+
+    #cms-main-content #handle-content form input[type="button"] {
+        margin-bottom: 15px;
     }
 
     #cms-main-content #handle-users table .tbl-enable-disable a img {

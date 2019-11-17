@@ -30,7 +30,13 @@
             </tr>
 
             <tr>
-                <td colspan="2"><img src="db/uploads/<?=$image?>" /></td>
+                <td colspan="2"> <?php
+                    if ($image) { ?>
+                        <img src="db/uploads/<?=$image?>" /> 
+                    <?php } else { ?>
+                        -
+                    <?php } ?>
+                </td>
             </tr>
         </table>
     </body>

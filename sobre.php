@@ -1,3 +1,10 @@
+<?php
+    if (!file_exists(include_once('db/conexao.php')))
+        include_once('db/conexao.php');
+
+    $conexao = conexao_mysql();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -34,47 +41,46 @@
                         SOBRE A FRAJOLA'S
                     </h2>
 
-                    <div class="sobre">
-                        <!-- Área imagem -->
-                        <div class="sobre_imagem">
-                            <img src="img/pizzaria_1980.jpg" class="responsive_img" alt="Frajola's em 1980">
-                        </div>
+                    <?php
+                    $sql = "SELECT * from sobre_nos;";
+             
+                    $select = mysqli_query($conexao, $sql);
 
-                        <!-- Área texto -->
-                        <div class="texto_sobre">
-                            <p>
-                                A Frajola's atua no ramo das pizzas desde 1980. Foi inaugurada no dia 21 de abril e a primeira pizzaria a fazer entregas em domicílio de Freguesia do Ó. Fechamos a unidade de Freguesia do Ó e nos instalamos em Carapicuíba. Atualmente temos dezenas de filiais da Frajola's espalhadas pelo estado de São Paulo.
-                            </p>
+                    while ($rs_about = mysqli_fetch_array($select)) { 
+                        if ($rs_about['status']) {
+                            if ($rs_about['posicao_texto'] === 'esquerda') { ?>
+                                <div class="sobre">
+                                    <!-- Texto -->
+                                    <div class="texto_sobre" <?php if (!$rs_about['imagem']) { echo("style='width: 100%'"); } ?>>
+                                        <p>
+                                            <?=$rs_about['texto']?>    
+                                        </p>
+                                    </div>
 
-                            <p>
-                                A pizzaria possui um atendimento totalmente informatizado, com equipamentos novos, profissionais treinados e instalações modernas e aconchegantes, além do salão com ar condicionado. 
-                            </p>
+                                    <!-- Imagem -->
+                                    <?php if ($rs_about['imagem']) { ?>
+                                        <div class="sobre_imagem">
+                                            <img src="cms/db/uploads/<?=$rs_about['imagem']?>" class="responsive_img" alt="Pizzaiolo Ricardo">
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                    <?php } else { ?>
+                                <div class="sobre">
+                                    <!-- Imagem -->
+                                    <?php if ($rs_about['imagem']) { ?>
+                                        <div class="sobre_imagem">
+                                            <img src="cms/db/uploads/<?=$rs_about['imagem']?>" class="responsive_img" alt="Pizzaiolo Ricardo">
+                                        </div>
+                                    <?php } ?>
 
-                            <p>
-                                Desde nosso nascimento mantemos a necessidade de crescimento sempre junto ao cliente fiel, que sempre foi e sempre será a princípal razão das nossas vendas. Trabalhamos com produtos e equipamentos da maior qualidade, buscando sempre a satisfação do consumidor.
-                            </p>
-
-                            <p>
-                                Aprendemos a fazer pizza com nossos antepassados napolitanos. O preparo é inteiramente artesanal. A massa é trabalhada com as mãos e descansa por no mínimo 48 horas antes de ser aberta. A pizza é degustada macia, bem assada e suave. As bordas elevadas são douradas e trazem um delicioso aroma. Na hora de recheá-la, além do vínculo com nossas tradições também buscamos referências contemporâneas, interpretando culturas, harmonizando ingredientes e criando novas experiências gastronômicas.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="sobre" id="sobre_2">
-                        <div class="texto_sobre center">
-                            <p>
-                                A palavra qualidade tem grande força dentro da Frajola's fazendo com que a melhoria seja significativa em todos os setores diariamente.
-                            </p>
-
-                            <p>
-                                A tradição dos 39 anos, faz com que a Frajola's ofereça para os seus clientes não somente uma pizza, mas sim, uma pizza com sabor inigualável.
-                            </p>
-
-                            <p>
-                                <span class="bold italic"> Frajola's, aprecie! </span>
-                            </p>
-                        </div>
-                    </div>
+                                    <!-- Texto  -->
+                                    <div class="texto_sobre" <?php if (!$rs_about['imagem']) { echo("style='width: 100%'"); } ?>>
+                                        <p>
+                                            <?=$rs_about['texto']?>    
+                                        </p>
+                                    </div>
+                                </div>
+                    <?php }}} ?>
                 </section>
             </div>
         </div>

@@ -23,13 +23,17 @@ let opcoes_celular = {
 };
 
 /* Função para validar entrada de caracteres inválidos */ 
-function validarLetrasNumeros(caracter, block_type) {
+function validarLetrasNumeros(caracter, block_type, limit = 0, id = '') {
     let asc = "";
 
     if (window.event)
         asc = caracter.charCode;
     else
         asc = caracter.which;
+
+    const $id = document.getElementById(id);
+    if ($id.value.length === limit) 
+        return false;
 
     if (block_type == "numeric") {
         if (asc >= 48 && asc <= 57)

@@ -11,7 +11,6 @@
     $button = 'Cadastrar';
     $conexao = conexao_mysql();
 
-    
     if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
         $id = $_GET['id'];
 
@@ -22,6 +21,7 @@
         if ($rs_curiosity = mysqli_fetch_array($select)) {
             $curiosity = $rs_curiosity['texto'];
             $image = $rs_curiosity['imagem'];
+            $text_position = $rs_curiosity['posicao_texto'];
         }
 
         $button = "Editar";
@@ -90,6 +90,12 @@
                             <img src="./img/camera.svg" id="camera-icon" alt="Select icon" style="display: <?php if (isset($image)) { echo('none'); } ?>;" />
                         </label>
                     </div>
+
+                    <select name="slt_text_position" required>
+                        <option value="">Posição do texto*</option>
+                        <option value="esquerda" <?php if (@$text_position === 'esquerda') { echo('selected'); } ?>>Esquerda</option>     
+                        <option value="direita" <?php if (@$text_position === 'direita') { echo('selected'); } ?>>Direita</option>
+                    </select>
                     
                     <input type="submit" name="btn_submit" value="<?=$button?>" />
                 </form> 
@@ -98,6 +104,7 @@
                     <tr id="tbl-header">
                         <td>CURIOSIDADE</td>
                         <td>IMAGEM</td>
+                        <td>POSIÇÃO DO TEXTO</td>
                         <td>ESTADO</td>
                         <td>OPÇÕES</td>
                     </tr>
@@ -113,8 +120,19 @@
                                 <?=substr($rs_curiosity['texto'], 0, 48) . '...'?>
                             </td>
 
-                            <td>
-                                <img src="db/uploads/<?=$rs_curiosity['imagem']?>" class="preview" />
+                            <td> <?php
+                                if ($rs_curiosity['imagem']) { ?>
+                                    <img src="db/uploads/<?=$rs_curiosity['imagem']?>" class="preview" /> 
+                                <?php } else { ?>
+                                    -
+                                <?php } ?>  
+                            </td>
+
+                            <td> <?php
+                                if ($rs_curiosity['posicao_texto'] === 'esquerda')
+                                    echo('Esquerda');
+                                else   
+                                    echo('Direita'); ?>
                             </td>
 
                             <td class="tbl-enable-disable"> <?php
@@ -181,6 +199,12 @@
                 $('#modal-close').click(function() {
                     $('#modal-container').slideUp(100);
                 })
+            });
+
+            /* Hide modal if you click anything other than it */
+            $(document).click(function(event) {
+                if (!$(event.target).closest('#modal, .handleModalView').length) 
+                    $("#modal-container").slideUp(100);
             });
 
             /* Hide modal on press esc */
