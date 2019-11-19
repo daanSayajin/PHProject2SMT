@@ -18,7 +18,7 @@
         return;
     } 
 
-    if (isset($_POST['btn_submit'])) {
+    if (true) {
 
         $curiosity = addslashes($_POST['txt_curiosity']);
         $text_position = $_POST['slt_text_position'];

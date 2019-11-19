@@ -186,7 +186,7 @@
                     const proxy = 'https://cors-anywhere.herokuapp.com/';
                     const url = `http://www.viacep.com.br/ws/${$('#txt_cep').val()}/json/`;
 
-                    fetch(proxy + url)
+                    fetch(proxy + url, { mode: 'cors' })
                         .then(res => res.json())
                         .then(data => {
                             $('#txt_district').val(data.bairro);

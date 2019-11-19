@@ -81,7 +81,7 @@
                     Curiosidades
                 </h2>
 
-                <form name="frm_curiosities" enctype="multipart/form-data" method="POST" action="./db/salvar_curiosidade.php<?php if (isset($id)) echo('?action=edit&id=' . $id . '&image=' . $image); ?>">
+                <form name="frm_curiosities" id="frm_curiosities" enctype="multipart/form-data" method="POST" action="./db/salvar_curiosidade.php<?php if (isset($id)) echo('?action=edit&id=' . $id . '&image=' . $image); ?>">
                     <div>
                         <textarea name="txt_curiosity" placeholder="Curiosidade*" required><?=@$curiosity?></textarea>
                         
@@ -97,7 +97,7 @@
                         <option value="direita" <?php if (@$text_position === 'direita') { echo('selected'); } ?>>Direita</option>
                     </select>
                     
-                    <input type="submit" name="btn_submit" value="<?=$button?>" />
+                    <input type="submit" name="btn_submit" id="btn_submit" value="<?=$button?>" />
                 </form> 
 
                 <table>
@@ -179,12 +179,34 @@
             var $thumbnail = document.getElementById('thumbnail');
             var $cameraIcon = document.getElementById('camera-icon');
             
-            $imageCuriosity.addEventListener('change', function(e) {
-                const url = URL.createObjectURL(e.target.files[0]);
+            $imageCuriosity.addEventListener('change', function(event) {
+                const url = URL.createObjectURL(event.target.files[0]);
 
                 $thumbnail.style.backgroundImage = `url(${url})`;
                 $thumbnail.style.border = 'none';
                 $cameraIcon.style.display = 'none';
+            });
+
+            $('#frm_curiosities').submit(function(event) {
+                event.preventDefault();
+
+                const file = $(this).find("input[type=file]")[0].files[0];
+                
+                if (file) {
+                    if (file.size / 1024 >= 2000) {
+                        alert('ERRO: O tamanho da imagem selecionada ultrapassou 2 megabytes!');
+                        return;
+                    }
+
+                    const validExts = ['jpg', 'png', 'jpeg'];
+                    const fileExt = file.name.split('.')[1];
+                    if ($.inArray(fileExt, validExts) === -1) {
+                        alert('ERRO: Só é permitido efetuar o cadastro de imagens!');
+                        return;
+                    }
+                }
+
+                this.submit();
             });
 
             /* Show modal */

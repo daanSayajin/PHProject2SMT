@@ -18,7 +18,7 @@
         return;
     } 
 
-    if (isset($_POST['btn_submit'])) {
+    if (true) {
 
         $about = addslashes($_POST['txt_about']);
         $text_position = $_POST['slt_text_position'];

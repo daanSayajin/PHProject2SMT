@@ -81,7 +81,7 @@
                     Sobre nós
                 </h2>
 
-                <form name="frm_about_us" enctype="multipart/form-data" method="POST" action="./db/salvar_sobre.php<?php if (isset($id)) echo('?action=edit&id=' . $id . '&image=' . $image); ?>">
+                <form name="frm_about_us" id="frm_about_us" enctype="multipart/form-data" method="POST" action="./db/salvar_sobre.php<?php if (isset($id)) echo('?action=edit&id=' . $id . '&image=' . $image); ?>">
                     <div>
                         <textarea name="txt_about" placeholder="Sobre*" required><?=@$about?></textarea>
                         
@@ -185,6 +185,28 @@
                 $thumbnail.style.backgroundImage = `url(${url})`;
                 $thumbnail.style.border = 'none';
                 $cameraIcon.style.display = 'none';
+            });
+
+            $('#frm_about_us').submit(function(event) {
+                event.preventDefault();
+
+                const file = $(this).find("input[type=file]")[0].files[0];
+                
+                if (file) {
+                    if (file.size / 1024 >= 2000) {
+                        alert('ERRO: O tamanho da imagem selecionada ultrapassou 2 megabytes!');
+                        return;
+                    }
+
+                    const validExts = ['jpg', 'png', 'jpeg'];
+                    const fileExt = file.name.split('.')[1];
+                    if ($.inArray(fileExt, validExts) === -1) {
+                        alert('ERRO: Só é permitido efetuar o cadastro de imagens!');
+                        return;
+                    }
+                }
+
+                this.submit();
             });
 
             /* Show modal */
