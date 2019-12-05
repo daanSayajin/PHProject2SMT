@@ -14,15 +14,18 @@ class LoginDAO {
     }
 
     public function selectAll() {
-        $sql = 'SELECT * FROM usuarios';
-        $select = $this->conexao->query($sql);
+        $sql = 'SELECT usuarios.*, niveis.adm_produtos
+                FROM usuarios INNER JOIN niveis
+                ON usuarios.id_nivel = niveis.id
+                WHERE adm_produtos=1';
+        $select = $this->connection->query($sql);
 
-        $contatos = array();
+        $usuarios = array();
 
-        while ($rsUsuarios = $select->fetch(PDO::FETCH_ASSOC)) 
-            $contatos[] = new Login($rsUsuarios['email'], $rsUsuarios['senha'], $rsUsuarios['id']);
+        while ($rsUsuario = $select->fetch(PDO::FETCH_ASSOC)) 
+            $usuarios[] = new Login($rsUsuario['email'], $rsUsuario['senha'], $rsUsuario['id']);
 
-        return $contatos;
+        return $usuarios;
     }
 }
 ?>

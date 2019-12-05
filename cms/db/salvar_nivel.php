@@ -21,7 +21,8 @@
         $adm_content = isset($_POST['chk_content']) ? 1 : 0;
         $adm_contact = isset($_POST['chk_contact']) ? 1 : 0;
         $adm_users = isset($_POST['chk_users']) ? 1 : 0;
-        
+        $adm_products = isset($_POST['chk_products']) ? 1 : 0;
+
         $conexao = conexao_mysql();
 
         if (isset($_GET['action']) && strtolower($_GET['action']) === 'edit') {
@@ -29,14 +30,16 @@
                     SET nome='".$name."',
                         adm_conteudo=".$adm_content.",
                         adm_contato=".$adm_contact.",
-                        adm_usuarios=".$adm_users." 
+                        adm_usuarios=".$adm_users.",
+                        adm_produtos=".$adm_products."
                         WHERE id=" . $_GET['id'] . ';';
         } else {
-            $sql = "INSERT INTO niveis (nome, adm_conteudo, adm_contato, adm_usuarios, status)
+            $sql = "INSERT INTO niveis (nome, adm_conteudo, adm_contato, adm_usuarios, adm_produtos, status)
                     VALUES ('".$name."',
                             ".$adm_content.",
                             ".$adm_contact.",
                             ".$adm_users.",
+                            ".$adm_products.",
                             1);";
         }
 

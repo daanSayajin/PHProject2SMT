@@ -427,10 +427,12 @@ p {
     #cms-main-content #handle-users form div label {
         margin-right: 30px;
         cursor: pointer;
+        display: flex;
     }
 
     #cms-main-content #handle-users form div label span {
-        margin: 0.5px 10px 0;
+        margin-top: -2px;
+        margin-left: 7px;
         user-select: none;
     }
 

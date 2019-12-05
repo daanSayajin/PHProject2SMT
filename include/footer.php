@@ -2,7 +2,7 @@
     <div class="conteudo center">
         <div id="administracao">
             <div id="sistema_interno">
-                <a href="pms?page=login">
+                <a href="pms">
                     <h1>
                         Sistema Interno
                     </h1>

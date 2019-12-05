@@ -2,7 +2,7 @@
     <div class="content center">
         <a href="./index.php">
             <h1>
-                CMS - Sistema de Gerenciamento do Site
+                CMS - Sistema Gerenciador de Conteúdo
             </h1>
         </a>
 

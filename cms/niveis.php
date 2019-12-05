@@ -23,6 +23,7 @@
             $adm_content = $level['adm_conteudo'];
             $adm_contact = $level['adm_contato'];
             $adm_users = $level['adm_usuarios'];
+            $adm_products = $level['adm_produtos'];
         }
 
         $button = "Editar";
@@ -88,6 +89,11 @@
                             <input type="checkbox" name="chk_users" <?php if (@$adm_users) echo('checked'); ?>>
                             <span>Administrar Usuários</span>
                         </label>
+
+                        <label style="margin-right: 0">
+                            <input type="checkbox" name="chk_products" <?php if (@$adm_products) echo('checked'); ?>>
+                            <span>Administrar Produtos</span>
+                        </label>
                     </div>
 
                     <input type="submit" name="btn_submit" value="<?=$button?>" />
@@ -99,6 +105,7 @@
                         <td>ADMINISTRAR CONTEÚDO</td>
                         <td>ADMINISTRAR FALE CONOSCO</td>
                         <td>ADMINISTRAR USUÁRIOS</td>
+                        <td>ADMINISTRAR PRODUTOS</td>
                         <td>ESTADO</td>
                         <td>OPÇÕES</td>
                     </tr>
@@ -128,6 +135,13 @@
 
                             <td> <?php
                                 if ($rs_level['adm_usuarios'])
+                                    echo('Sim');
+                                else   
+                                    echo('Não'); ?>
+                            </td>
+
+                            <td> <?php
+                                if ($rs_level['adm_produtos'])
                                     echo('Sim');
                                 else   
                                     echo('Não'); ?>

@@ -1,4 +1,4 @@
-<?php
+    <?php
 class Login {
     private $email;
     private $password;
@@ -6,7 +6,7 @@ class Login {
 
     public function __construct($email, $password, $id = '') {
         $this->email = $email;
-        $this->password = $password; 
+        $this->password = $password;
         $this->id = $id; 
     }
 
@@ -14,24 +14,12 @@ class Login {
         return $this->email;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
     public function getPassword() {
         return $this->password;
     }
 
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
     public function getId() {
         return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
     }
 }
 ?>

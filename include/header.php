@@ -29,47 +29,102 @@
 
 <header>
     <div class="conteudo center">
-        <div id="area_logo">
-            <a href="index.php">
-                <div id="logo">
-                    <img src="img/logo.png" alt="Frajola's Logo">    
-                </div>
-            </a>
+        <div id="desktop">
+            <div id="area_logo">
+                <a href="index.php">
+                    <div id="logo">
+                        <img src="img/logo.png" alt="Frajola's Logo">    
+                    </div>
+                </a>
+            </div>
+    
+            <!-- Menu de navegação do site -->
+            <nav id="area_menu">
+                <ul id="menu">  
+                    <li class="menu_itens"> <a href="promocoes.php"> PROMOÇÕES </a> </li>
+                    <li class="menu_itens"> <a href="produto_mes.php"> PRODUTO DO MÊS </a> </li> 
+                    <li class="menu_itens"> <a href="curiosidades.php"> CURIOSIDADES </a> </li>
+                    <li class="menu_itens"> <a href="filiais.php"> NOSSAS LOJAS </a> </li>
+                    <li class="menu_itens"> <a href="sobre.php"> SOBRE A EMPRESA </a> </li>
+                    <li class="menu_itens"> <a href="contato.php"> ENTRE EM CONTATO </a> </li>
+                </ul>
+            </nav>
+
+            <!-- Área de login -->
+            <div id="area_login">
+                <form name="frm_login" method="post" action="#">
+                    <div id="lgn">
+                        <label for="txt_email">
+                            E-mail  
+                        </label>
+
+                        <input type="email" name="txt_email" value="" id="txt_email" class="txt" required>
+                    </div>
+
+                    <div id="pass">
+                        <label for="txt_password">
+                            Password
+                        </label>
+
+                        <input type="password" name="txt_password" value="" id="txt_password" class="txt" required>
+                    </div>
+
+                    <input type="submit" name="btn_submit" value="OK" class="btn">
+                </form>
+            </div>
         </div>
 
-        <!-- Menu de navegação do site -->
-        <nav id="area_menu">
-            <ul id="menu">  
-                <li class="menu_itens"> <a href="promocoes.php"> PROMOÇÕES </a> </li>
-                <li class="menu_itens"> <a href="produto_mes.php"> PRODUTO DO MÊS </a> </li> 
-                <li class="menu_itens"> <a href="curiosidades.php"> CURIOSIDADES </a> </li>
-                <li class="menu_itens"> <a href="filiais.php"> NOSSAS LOJAS </a> </li>
-                <li class="menu_itens"> <a href="sobre.php"> SOBRE A EMPRESA </a> </li>
-                <li class="menu_itens"> <a href="contato.php"> ENTRE EM CONTATO </a> </li>
-            </ul>
-        </nav>
+        <div id="mobile">
+            <!-- Menu de navegação do site -->
+            <div id="area_icone_menu">
+                <img src="img/icon.png" id="icone_menu" alt="Menu Icon" />
 
-        <!-- Área de login -->
-        <div id="area_login">
-            <form name="frm_login" method="post" action="#">
-                <div id="lgn">
-                    <label for="txt_email">
-                        E-mail  
-                    </label>
+                <h1>
+                    Frajola's Pizzaria
+                </h1>
 
-                     <input type="email" name="txt_email" value="" id="txt_email" class="txt" required>
-                </div>
+                <nav id="area_menu">
+                    <ul id="menu">  
+                        <li class="menu_itens"> <a href="promocoes.php"> PROMOÇÕES </a> </li>
+                        <li class="menu_itens"> <a href="produto_mes.php"> PRODUTO DO MÊS </a> </li> 
+                        <li class="menu_itens"> <a href="curiosidades.php"> CURIOSIDADES </a> </li>
+                        <li class="menu_itens"> <a href="filiais.php"> NOSSAS LOJAS </a> </li>
+                        <li class="menu_itens"> <a href="sobre.php"> SOBRE A EMPRESA </a> </li>
+                        <li class="menu_itens"> <a href="contato.php"> ENTRE EM CONTATO </a> </li>
+                    </ul>
 
-                <div id="pass">
-                    <label for="txt_password">
-                        Password
-                    </label>
+                    <!-- Área de login -->
+                    <div id="area_login">
+                        <form name="frm_login" method="post" action="#">
+                            <div id="lgn">
+                                <label for="txt_email">
+                                    E-mail  
+                                </label>
+        
+                                <input type="email" name="txt_email" value="" id="txt_email" class="txt" required>
+                            </div>
+        
+                            <div id="pass">
+                                <label for="txt_password">
+                                    Password
+                                </label>
+        
+                                <input type="password" name="txt_password" value="" id="txt_password" class="txt" required>
+                            </div>
+        
+                            <input type="submit" name="btn_submit" value="OK" class="btn">
+                        </form>
+                    </div>
+                </nav>
+            </div>
 
-                    <input type="password" name="txt_password" value="" id="txt_password" class="txt" required>
-                </div>
-
-                <input type="submit" name="btn_submit" value="OK" class="btn">
-            </form>
+            <div id="area_logo">
+                <a href="index.php">
+                    <div id="logo">
+                        <img src="img/logo.png" alt="Frajola's Logo">    
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
-</header>	
+</header>
