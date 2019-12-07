@@ -13,17 +13,31 @@ class LoginController {
     }
 
     public function selectAll() {
-        $logins = [];
+        $users = [];
 
-        foreach($this->loginDAO->selectAll() as $login) {
-            array_push($logins, array(
-                'id' => $login->getId(),
-                'email' => $login->getEmail(),
-                'password' => $login->getPassword()
+        foreach($this->loginDAO->selectAll() as $user) {
+            array_push($users, array(
+                'id' => $user->getId(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword()
             ));
         }
 
-        return json_encode($logins);
+        return json_encode($users);
+    }
+
+    public function selectById($id) {
+        if ($user = $this->loginDAO->selectById($id)) {
+            $user = array(
+                'id' => $user->getId(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword()
+            );
+        }
+
+        return json_encode($user);
     }
 }
 ?>

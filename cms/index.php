@@ -29,11 +29,11 @@
         <div id="cms-main-content">
             <div id="welcome" class="content center">
                 <h1>
-                    <strong> Bem-vindo ao Sistema de Gerenciamento do Site </strong>
+                    <strong> Bem-vindo ao Sistema Gerenciador de Conteúdo </strong>
                 </h1>
             
                 <p>
-                    No CMS (Sistema de Gerenciamento do Site) você pode alterar o conteúdo de todas páginas no seu site que não envolvam os produtos, por exemplo: curiosidades, nossas lojas e sobre a empresa. Além disso você pode administrar as mensagens que foram enviadas para a empresa (da página entre em contato).
+                    No CMS (Sistema Gerenciador de Conteúdo) você pode alterar o conteúdo de todas páginas no seu site que não envolvam os produtos, por exemplo: curiosidades, nossas lojas e sobre a empresa. Além disso você pode administrar as mensagens que foram enviadas para a empresa (da página entre em contato).
                 </p>           
             </div>
         </div>

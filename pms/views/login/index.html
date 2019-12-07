@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="../img/logo.png">
-        <link href="views/css/styles.css" rel="stylesheet" type="text/css">
+        <link href="css/styles.css" rel="stylesheet" type="text/css">
         <title>Frajola's Pizzaria - PMS</title>
     </head>
     <body id="login-page">  
@@ -15,7 +15,7 @@
                 <form id="frm_login">
                     <label>E-MAIL</label>
                     <input type="email" id="txt_email" required />
-                    <label>PASSWORD</label>
+                    <label>SENHA</label>
                     <input type="password" id="txt_password" required />
                     <input type="submit" value="Entrar" />
                 </form>
@@ -23,10 +23,18 @@
         </div>
 
         <script src="../js/jquery.js"></script>
-        <script src="views/js/core.min.js"></script>
-        <script src="views/js/md5.min.js"></script>
-        <script src="views/js/sweetalert.min.js"></script>
+        <script src="js/modules.js"></script>
+        <script src="js/core.min.js"></script>
+        <script src="js/md5.min.js"></script>
+        <script src="js/sweetalert.min.js"></script>
         <script>
+            $(document).ready(function() {
+                const username = sessionStorage.getItem("username");
+
+                if (username) 
+                    location.href = '?page=home';
+            });
+
             $('#frm_login').submit(function(event) {
                 event.preventDefault();
             
@@ -35,19 +43,15 @@
 
                 const password_hash = CryptoJS.MD5(txt_password).toString(CryptoJS.enc.Hex);
 
-                $.ajax({
-                    method: 'GET',
-                    url: 'routes.php?controller=login&action=selectAll',
-                    dataType: 'json',
-                    success: function(data) {
-                        data.forEach(user => {
-                            if (user.email === txt_email && user.password === password_hash) {
-                                location.href = 'index.php?page=produtos';
-                            }
-                        });
+                selectAll('login', function(data) {
+                    data.forEach(user => {
+                        if (user.email === txt_email && user.password === password_hash) {
+                            sessionStorage.setItem("username", user.name);
+                            location.href = 'index.php?page=home';
+                        }
+                    });
 
-                        swal('Oops...', 'Invalid username or password specified.', 'error');
-                    }
+                    swal('Oops...', 'E-mail ou senha inválidos.', 'error');
                 });
             });
         </script>
