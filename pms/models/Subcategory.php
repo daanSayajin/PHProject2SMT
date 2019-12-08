@@ -1,5 +1,5 @@
 <?php
-class Category {
+class Subcategory {
     private $name;
     private $status;
     private $id;
@@ -18,7 +18,7 @@ class Category {
         $this->name = $name;
     }
 
-    public function getStatus() {
+	public function getStatus() {
         return $this->status;
     }
 

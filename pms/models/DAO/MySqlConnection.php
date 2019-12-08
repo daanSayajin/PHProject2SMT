@@ -14,7 +14,7 @@ class MySqlConnection {
 
     public function connect() {   
         try {
-            $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->user, $this->password);
+            $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database . ';charset=utf8', $this->user, $this->password);
         } catch(PDOException $err) {
             return $err->getLine() . $err->getMessage();
         }

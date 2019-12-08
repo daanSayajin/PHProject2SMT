@@ -7,6 +7,7 @@
         <link rel="icon" href="../img/logo.png">
         <link href="css/styles.css" rel="stylesheet" type="text/css"> 
         <link href="../cms/css/styles.css" rel="stylesheet" type="text/css">
+        <link href="css/select2.min.css" rel="stylesheet" type="text/css">
         <title>Frajola's Pizzaria - PMS</title>
     </head>
     <body>
@@ -36,8 +37,15 @@
 
                     <li> 
                         <a href="?page=categorias">
-                            <img src="assets/categories.png" alt="Ícone produtos" />
+                            <img src="assets/categories.png" alt="Ícone categorias" />
                             Administração de Categorias
+                        </a>
+                    </li>
+
+                    <li> 
+                        <a href="?page=subcategorias">
+                            <img src="assets/subcategories.png" alt="Ícone subcategorias" />
+                            Administração de Subcategorias
                         </a>
                     </li>
                 </ul>
@@ -55,21 +63,249 @@
         </nav>
 
         <div id="cms-main-content">
-            <div id="welcome" class="content center">
+            <div id="pms-main-content" class="content center">
                 <h1>
                     <strong> Administração de Produtos </strong>
                 </h1>
             
-                
+                <form id="frm_product">
+                    <div>
+                        <input type="text" id="txt_name" placeholder="Nome do Produto*" required style="width: 47%; margin-right: 1%" />
+                        <input type="text" id="txt_price" placeholder="Preço*" required style="width: 17%; margin-right: 1%" />
+                        <input type="text" id="txt_discount" placeholder="Desconto (%)" required style="width: 17%; margin-right: 1%" />
+                        <input type="checkbox" id="chk_productOfTheMonth" style="width: 23px; height: 23px; margin-top: 5px;" />
+                        <label for="chk_productOfTheMonth" style="margin-top: 7px; margin-left: 4px; user-select: none">Produto do mês</label>
+                    </div>
+                    <div style="margin-bottom: 12px">
+                        <select id="slt_categories" ame="categories" required style="width: 49%; height: 30px">
+                            <option></option>    
+                        </select>
+                        <span style="width: 1%"></span>
+                        <select id="slt_subcategories" name="subcategories[]" multiple="multiple" required style="width: 50%">
+                            
+                        </select>
+                    </div>
+                    <textarea id="txt_description" placeholder="Descrição do Produto*"></textarea>
+                    <input type="submit" id="btn_submit" value="Cadastrar" /> 
+                </form>
+
+                <table id="tbl-data">
+
+                </table>
             </div>
         </div>
 
         <script src="../js/jquery.js"></script>
         <script src="js/modules.js"></script>
+        <script src="js/select2.min.js"></script>
         <script src="js/sweetalert.min.js"></script>
+        <script src="js/jquery.inputmask.min.js"></script>
         <script>
             $(document).ready(handleSessionStorage('#lbl_username'));
             $('#btn_logout').click(handleLogout);
+            
+            $('#txt_price').inputmask('decimal', {
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 2,
+                radixPoint: ',',
+                prefix: 'R$ ',
+                rightAlign: false,
+                min: 0,
+                max: 1000,
+                removeMaskOnSubmit: true
+            });
+
+            $('#txt_discount').inputmask('numeric', {
+                radixPoint: ".",
+                groupSeparator: ",",
+                autoGroup: true,
+                suffix: " %",
+                rightAlign: false,
+                min: 0,
+                max: 100
+            });
+
+            $(document).ready(function() {
+                $('#slt_categories').select2({
+                    placeholder: 'Selecione a categoria*',
+                    allowClear: false
+                });
+
+                $('#slt_subcategories').select2({
+                    placeholder: 'Selecione as subcategorias*',
+                    allowClear: false
+                });
+
+                selectAll('category', function(data) {
+                    data.forEach(category => {
+                        $('#slt_categories').append(`
+                            <option value="${category.id}">${category.name}</option>
+                        `);
+                    });
+                });
+
+                selectAll('subcategory', function(data) {
+                    data.forEach(subcategory => {
+                        $('#slt_subcategories').append(`
+                            <option value="${subcategory.id}">${subcategory.name}</option>
+                        `);
+                    });
+                });
+            });
+
+            function refreshProducts() {
+                selectAll('product', function(data) {
+                    $('#tbl-data').empty();
+
+                    data.forEach(product => {
+                        $('#tbl-data').append(`
+                            <tr>
+                                <td> 
+                                    ${product.name}    
+                                </td>
+                                <td> 
+                                    ${product.description === '' ? '-' : product.description}    
+                                </td>
+                                <td> 
+                                    ${'R$ ' + parseFloat(product.price).toFixed(2).replace('.', ',')}    
+                                </td>
+                                <td> 
+                                    ${product.discount === '0' ? '-' : product.discount + '%'}    
+                                </td>
+                                <td> 
+                                    ${product.isProductOfTheMonth ? 'Sim' : 'Não'}    
+                                </td>
+                                <td class="tbl-enable-disable"> 
+                                    ${(function() {
+                                        if (product.status) 
+                                            return `<a class="updateStatus" data-id="${product.id}" data-status="false"> <img src="../cms/img/on.png" alt="Desabilitar" title="Desabilitar" /> </a>`;
+                                        else 
+                                            return `<a class="updateStatus" data-id="${product.id}" data-status="true"> <img src="../cms/img/off.png" alt="Habilitar" title="Habilitar" /> </a>`;
+                                    })()}
+                                </td>
+                                <td> 
+                                    <a>
+                                        <img src="../cms/img/edit.png" class="update" alt="Editar" title="Editar" data-id="${product.id}" />
+                                    </a>
+
+                                    <a>
+                                        <img src="../cms/img/remove.png" class="delete" alt="Remover" title="Remover" data-id="${product.id}" />
+                                    </a>    
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    $('#tbl-data').prepend(`
+                    <tr id="tbl-header">
+                        <td>NOME</td>
+                        <td>DESCRIÇÃO</td>
+                        <td>PREÇO</td>
+                        <td>DESCONTO</td>
+                        <td>PRODUTO DO MÊS</td>
+                        <td>ESTADO</td>
+                        <td>OPÇÕES</td>
+                    </tr>`);
+
+                    $('.updateStatus').click(function(event) {
+                        const id = event.currentTarget.dataset.id;
+                        const status = event.currentTarget.dataset.status;
+
+                        updateStatus('product', id, status, function(data) {
+                            if (data.status === 'ok') {
+                                refreshProducts();
+                                swal('Yay!', `Produto ${status === 'true' ? 'habilitado' : 'desabilitado'} com sucesso!`, 'success');
+                            }
+                        });
+                    });
+
+                    $('.delete').click(function(event) {
+                        const id = event.currentTarget.dataset.id;
+                        
+                        swal('...', 'Deseja realmente excluir esse produto?', { buttons: true, icon: 'warning' })
+                        .then(function(isConfirm) {
+                            if (isConfirm) {
+                                remove('product', id, function(data) {
+                                    if (data.status === 'ok') 
+                                        refreshProducts();
+                                });
+                            }
+                        });
+                    });
+
+                    $('.update').click(function(event) {
+                        var id = event.currentTarget.dataset.id;
+
+                        selectById('product', id, function(data) {
+                            $('#txt_name').val(data.name);
+                            $('#txt_description').val(data.description);
+                            $('#txt_price').val(parseFloat(data.price).toFixed(2).replace('.', ','));
+                            $('#txt_discount').val(data.discount);
+                            $('#chk_productOfTheMonth').prop('checked', data.isProductOfTheMonth);
+                            $('#btn_submit').data('id', id);
+                            $('#btn_submit').val('Atualizar');
+                        });
+                    });
+                });
+            }
+
+            $(document).ready(refreshProducts);
+
+            $('#frm_product').submit(function(event) {
+                event.preventDefault();
+
+                console.log($('#slt_categories').val());
+                console.log($('#slt_subcategories').val());
+
+                if ($('#btn_submit').val() === 'Cadastrar') {
+                    insert('product', {
+                        name: $('#txt_name').val(),
+                        description: $('#txt_description').val(),
+                        price: $('#txt_price').val().replace(',', '.'),
+                        discount: $('#txt_discount').val(),
+                        isProductOfTheMonth: $('#chk_productOfTheMonth').is(':checked'),
+                    }, function(data) {
+                        if (data.status === 'ok') {
+                            $('#txt_name').val('');
+                            $('#txt_price').val('');
+                            $('#txt_discount').val('');
+                            $('#txt_description').val('');
+                            $('#chk_productOfTheMonth').prop('checked', false);
+                            $("#slt_categories").val('').trigger('change');
+                            $("#slt_subcategories").val('').trigger('change');
+                            
+                            refreshProducts();
+                            swal('Yay!', 'Produto cadastrado com sucesso!', 'success');
+                        }
+                    });
+                } else if ($('#btn_submit').val() === 'Atualizar') {
+                    update('product', $('#btn_submit').data('id'), {
+                        name: $('#txt_name').val(),
+                        description: $('#txt_description').val(),
+                        price: $('#txt_price').val().replace(',', '.'),
+                        discount: $('#txt_discount').val(),
+                        isProductOfTheMonth: $('#chk_productOfTheMonth').is(':checked'),
+                    }, function(data) {
+                        if (data.status === 'ok') {
+                            $('#txt_name').val('');
+                            $('#txt_price').val('');
+                            $('#txt_discount').val('');
+                            $('#txt_description').val('');
+                            $('#chk_productOfTheMonth').prop('checked', false);
+                            $("#slt_categories").val('').trigger('change');
+                            $("#slt_subcategories").val('').trigger('change');
+
+                            $('#btn_submit').removeData('id');
+                            $('#btn_submit').val('Cadastrar');
+
+                            refreshProducts();
+                            swal('Yay!', 'Produto atualizado com sucesso!', 'success');
+                        }
+                    });
+                }
+            });
         </script>
     </body>
 </html>

@@ -64,11 +64,11 @@
         <div id="cms-main-content">
             <div id="pms-main-content" class="content center">
                 <h1>
-                    <strong> Administração de Categorias </strong>
+                    <strong> Administração de Subcategorias </strong>
                 </h1>
             
-                <form id="frm_category">
-                    <input type="text" id="txt_name" placeholder="Nome da Categoria*" required />
+                <form id="frm_subcategory">
+                    <input type="text" id="txt_name" placeholder="Nome da Subcategoria*" required />
                     <input type="submit" id="btn_submit" value="Cadastrar" /> 
                 </form>
 
@@ -84,31 +84,31 @@
         <script>
             $(document).ready(handleSessionStorage('#lbl_username'));
 
-            function refreshCategories() {
-                selectAll('category', function(data) {
+            function refreshSubcategories() {
+                selectAll('subcategory', function(data) {
                     $('#tbl-data').empty();
 
-                    data.forEach(category => {
+                    data.forEach(subcategory => {
                         $('#tbl-data').append(`
                             <tr>
                                 <td> 
-                                    ${category.name}    
+                                    ${subcategory.name}    
                                 </td>
                                 <td class="tbl-enable-disable"> 
                                     ${(function() {
-                                        if (category.status) 
-                                            return `<a class="updateStatus" data-id="${category.id}" data-status="false"> <img src="../cms/img/on.png" alt="Desabilitar" title="Desabilitar" /> </a>`;
+                                        if (subcategory.status) 
+                                            return `<a class="updateStatus" data-id="${subcategory.id}" data-status="false"> <img src="../cms/img/on.png" alt="Desabilitar" title="Desabilitar" /> </a>`;
                                         else 
-                                            return `<a class="updateStatus" data-id="${category.id}" data-status="true"> <img src="../cms/img/off.png" alt="Habilitar" title="Habilitar" /> </a>`;
+                                            return `<a class="updateStatus" data-id="${subcategory.id}" data-status="true"> <img src="../cms/img/off.png" alt="Habilitar" title="Habilitar" /> </a>`;
                                     })()}
                                 </td>
                                 <td> 
                                     <a>
-                                        <img src="../cms/img/edit.png" class="update" alt="Editar" title="Editar" data-id="${category.id}" />
+                                        <img src="../cms/img/edit.png" class="update" alt="Editar" title="Editar" data-id="${subcategory.id}" />
                                     </a>
 
                                     <a>
-                                        <img src="../cms/img/remove.png" class="delete" alt="Remover" title="Remover" data-id="${category.id}" />
+                                        <img src="../cms/img/remove.png" class="delete" alt="Remover" title="Remover" data-id="${subcategory.id}" />
                                     </a>    
                                 </td>
                             </tr>
@@ -125,11 +125,11 @@
                     $('.updateStatus').click(function(event) {
                         const id = event.currentTarget.dataset.id;
                         const status = event.currentTarget.dataset.status;
-       
-                        updateStatus('category', id, status, function(data) {
+
+                        updateStatus('subcategory', id, status, function(data) {
                             if (data.status === 'ok') {
-                                refreshCategories();
-                                swal('Yay!', `Categoria ${status === 'true' ? 'habilitada' : 'desabilitada'} com sucesso!`, 'success');
+                                refreshSubcategories();
+                                swal('Yay!', `Subcategoria ${status === 'true' ? 'habilitada' : 'desabilitada'} com sucesso!`, 'success');
                             }
                         });
                     });
@@ -137,12 +137,12 @@
                     $('.delete').click(function(event) {
                         const id = event.currentTarget.dataset.id;
                         
-                        swal('...', 'Deseja realmente excluir essa categoria?', { buttons: true, icon: 'warning' })
+                        swal('...', 'Deseja realmente excluir essa subcategoria?', { buttons: true, icon: 'warning' })
                         .then(function(isConfirm) {
                             if (isConfirm) {
-                                remove('category', id, function(data) {
+                                remove('subcategory', id, function(data) {
                                     if (data.status === 'ok') 
-                                        refreshCategories();
+                                        refreshSubcategories();
                                 });
                             }
                         });
@@ -151,7 +151,7 @@
                     $('.update').click(function(event) {
                         var id = event.currentTarget.dataset.id;
 
-                        selectById('category', id, function(data) {
+                        selectById('subcategory', id, function(data) {
                             $('#txt_name').val(data.name);
                             $('#btn_submit').data('id', id);
                             $('#btn_submit').val('Atualizar');
@@ -160,26 +160,26 @@
                 });
             }
 
-            $(document).ready(refreshCategories);
+            $(document).ready(refreshSubcategories);
 
             $('#btn_logout').click(handleLogout);
 
-            $('#frm_category').submit(function(event) {
+            $('#frm_subcategory').submit(function(event) {
                 event.preventDefault();
 
                 if ($('#btn_submit').val() === 'Cadastrar') {
-                    insert('category', {
+                    insert('subcategory', {
                         name: $('#txt_name').val()
                     }, function(data) {
                         if (data.status === 'ok') {
                             $('#txt_name').val('');
-
-                            refreshCategories();
-                            swal('Yay!', 'Categoria cadastrada com sucesso!', 'success');
+                            
+                            refreshSubcategories();
+                            swal('Yay!', 'Subcategoria cadastrada com sucesso!', 'success');
                         }
                     });
                 } else if ($('#btn_submit').val() === 'Atualizar') {
-                    update('category', $('#btn_submit').data('id'), {
+                    update('subcategory', $('#btn_submit').data('id'), {
                         name: $('#txt_name').val()
                     }, function(data) {
                         if (data.status === 'ok') {
@@ -187,8 +187,8 @@
                             $('#btn_submit').removeData('id');
                             $('#btn_submit').val('Cadastrar');
 
-                            refreshCategories();
-                            swal('Yay!', 'Categoria atualizada com sucesso!', 'success');
+                            refreshSubcategories();
+                            swal('Yay!', 'Subcategoria atualizada com sucesso!', 'success');
                         }
                     });
                 }

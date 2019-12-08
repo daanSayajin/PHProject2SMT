@@ -36,6 +36,18 @@ class CategoryDAO {
 
         return $stm->execute($stmData);
     }
+
+    public function updateStatus($id, $status) {
+        $sql = 'UPDATE categorias SET status=? WHERE id=?';
+        
+        $stm = $this->connection->prepare($sql);
+        $stmData = array(
+            $status,
+            $id
+        );
+
+        return $stm->execute($stmData);
+    }
     
     public function delete($id) {
         $sql = "DELETE FROM categorias WHERE id={$id}";
@@ -50,7 +62,7 @@ class CategoryDAO {
         $categories = array();
 
         while ($rsCategory = $select->fetch(PDO::FETCH_ASSOC)) 
-            $categories[] = new Category($rsCategory['nome'], $rsCategory['id']);
+            $categories[] = new Category($rsCategory['nome'], $rsCategory['status'], $rsCategory['id']);
 
         return $categories;
     }
@@ -62,7 +74,7 @@ class CategoryDAO {
         $category = array();
 
         if ($rsCategory = $select->fetch(PDO::FETCH_ASSOC)) 
-            $category = new Category($rsCategory['nome'], $rsCategory['id']);
+            $category = new Category($rsCategory['nome'], $rsCategory['status'], $rsCategory['id']);
 
         return $category;
     }

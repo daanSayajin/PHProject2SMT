@@ -4,7 +4,8 @@ function insert(controller, body, cb = null) {
         url: `routes.php?controller=${controller}&action=insert`,
         data: body,
         dataType: 'json',
-        success: cb
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
     });
 }
 
@@ -14,7 +15,18 @@ function update(controller, id, body, cb = null) {
         url: `routes.php?controller=${controller}&action=update&id=${id}`,
         data: body,
         dataType: 'json',
-        success: cb
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function updateStatus(controller, id, status, cb = null) {
+    $.ajax({
+        method: 'PUT',
+        url: `routes.php?controller=${controller}&action=updateStatus&id=${id}&status=${status}`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
     });
 }
 
@@ -23,7 +35,8 @@ function remove(controller, id, cb = null) {
         method: 'DELETE',
         url: `routes.php?controller=${controller}&action=delete&id=${id}`,
         dataType: 'json',
-        success: cb
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
     });
 }
 
@@ -32,7 +45,8 @@ function selectAll(controller, cb) {
         method: 'GET',
         url: `routes.php?controller=${controller}&action=selectAll`,
         dataType: 'json',
-        success: cb
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
     });
 }
 
@@ -42,9 +56,7 @@ function selectById(controller, id, cb) {
         url: `routes.php?controller=${controller}&action=selectById&id=${id}`,
         dataType: 'json',
         success: cb,
-        error: function(data) {
-            console.log(data);
-        }
+        error: function(err) { console.log(err.responseText) }
     });
 }
 

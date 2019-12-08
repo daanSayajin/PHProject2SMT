@@ -32,7 +32,16 @@ class CategoryController {
             $json = array('status' => 'ok');
         else
             $json = array('status' => 'error');
+        
+        return json_encode($json);
+    }
 
+    public function updateStatus($id, $status) {
+        if ($this->categoryDAO->updateStatus($id, $status === 'true' ? 1 : 0)) 
+            $json = array('status' => 'ok');
+        else
+            $json = array('status' => 'error');
+        
         return json_encode($json);
     }
 
@@ -51,7 +60,8 @@ class CategoryController {
         foreach($this->categoryDAO->selectAll() as $category) {
             array_push($categories, array(
                 'id' => $category->getId(),
-                'name' => $category->getName()
+                'name' => $category->getName(),
+                'status' => boolval($category->getStatus())
             ));
         }
 
@@ -62,7 +72,8 @@ class CategoryController {
         if ($category = $this->categoryDAO->selectById($id)) {
             $category = array(
                 'id' => $category->getId(),
-                'name' => $category->getName()
+                'name' => $category->getName(),
+                'status' => boolval($category->getStatus())
             );
         }
 
