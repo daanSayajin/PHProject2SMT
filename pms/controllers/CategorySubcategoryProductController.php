@@ -112,10 +112,10 @@ class CategorySubcategoryProductController {
         return json_encode($categoriesSubcategoriesProducts);
     }
     
-    public function selectBySubcategoryId($idSubcategory) {
+    public function selectByCategoryAndSubcategoryId($idCategory, $idSubcategory) {
         $categoriesSubcategoriesProducts = [];
 
-        foreach($this->categorySubcategoryProductDAO->selectBySubcategoryId($idSubcategory) as $categorySubcategoryProduct) {
+        foreach($this->categorySubcategoryProductDAO->selectByCategoryAndSubcategoryId($idCategory, $idSubcategory) as $categorySubcategoryProduct) {
             array_push($categoriesSubcategoriesProducts, array(
                 'id' => $categorySubcategoryProduct->getId(),
                 'id_category' => $categorySubcategoryProduct->getCategory()->getId(),

@@ -67,6 +67,7 @@
         <script src="js/jquery.js"></script>
         <script src="js/flickity.js"></script>
         <script src="js/slider.js"></script>
+        <script src="js/modules.js"></script>
         <script src="pms/js/modules.js"></script>
         <script>
             function getShuffledArr(arr) {
@@ -89,35 +90,7 @@
                     products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));
                     products = getShuffledArr(products);
 
-                    products.forEach(function(product) {
-                        $('#produtos').append(`
-                            <div class="produto">
-                                <div class="foto_produto">
-                                    <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
-                                </div>
-                                
-                                <div class="informacoes_produto">
-                                    <p>
-                                        <span class="bold"> Nome: </span> ${product.name}
-                                    </p>
-
-                                    <p>
-                                        <span class="bold"> Descrição: </span> ${product.description === '' ? '-' : product.description}  
-                                    </p>
-
-                                    <p class="preco bold">
-                                        ${'R$ ' + parseFloat(product.price).toFixed(2).replace('.', ',')} 
-                                    </p>
-
-                                    <div id="detalhes-align">
-                                        <a>
-                                            Detalhes
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>  
-                        `);
-                    });
+                    drawProducts(products);
                 });
             });
 
@@ -133,6 +106,7 @@
                         `);                  
                     });
 
+                    const execute = true;
                     for (let i = 0; i < $('.submenu').length; i++) {
                         selectByCategoryId('categorySubcategoryProduct', $('.submenu').eq(i).data('id'), function(data) {
                             let subcategories = [];
@@ -148,6 +122,25 @@
                                 $('.submenu').eq(i).append(`
                                     <li class="submenu_itens" data-id="${subcategory[0]}">${subcategory[1]}</li>
                                 `);
+
+                                $('.submenu_itens').click(function(event) {
+                                    const idSubcategory = event.currentTarget.dataset.id;
+                                    const idCategory = event.currentTarget.offsetParent.dataset.id;
+
+                                    selectByCategoryAndSubcategoryId('categorySubcategoryProduct', idCategory, idSubcategory, function(data) {
+                                        $('#produtos').empty();
+
+                                        let products = [];
+
+                                        data.find(function(product, i) {
+                                            products.push({ id: product.id_product, name: product.name, description: product.description, price: product.price }); 
+                                        });
+
+                                        products = products.filter((product, i) => i === products.findIndex((product2) => (product.id === product2.id)));
+                                        
+                                        drawProducts(products);
+                                    })
+                                });  
                             });
                         }); 
                     }
@@ -166,44 +159,10 @@
 
                             products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));
 
-                            products.forEach(function(product) {
-                                $('#produtos').append(`
-                                    <div class="produto">
-                                        <div class="foto_produto">
-                                            <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
-                                        </div>
-                                        
-                                        <div class="informacoes_produto">
-                                            <p>
-                                                <span class="bold"> Nome: </span> ${product.name}
-                                            </p>
-
-                                            <p>
-                                                <span class="bold"> Descrição: </span> ${product.description === '' ? '-' : product.description}  
-                                            </p>
-
-                                            <p class="preco bold">
-                                                ${'R$ ' + parseFloat(product.price).toFixed(2).replace('.', ',')} 
-                                            </p>
-
-                                            <div id="detalhes-align">
-                                                <a>
-                                                    Detalhes
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                `);
-                            });
+                            drawProducts(products);
                         });
                     });  
-
-                    $('.submenu_itens').click(function(event) {
-                        alert('a');
-                    });  
                 });
-
-                    
             });
         </script>
     </body>

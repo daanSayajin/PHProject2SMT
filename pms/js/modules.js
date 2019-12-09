@@ -82,10 +82,10 @@ function selectByCategoryId(controller, id, cb) {
     });
 }
 
-function selectBySubcategoryId(controller, id, cb) {
+function selectByCategoryAndSubcategoryId(controller, idCategory, idSubcategory, cb) {
     $.ajax({
         method: 'GET',
-        url: `${baseUrl}routes.php?controller=${controller}&action=selectBySubcategoryId&id=${id}`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectByCategoryAndSubcategoryId&id=${idCategory}&status=${idSubcategory}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }

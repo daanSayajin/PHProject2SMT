@@ -101,7 +101,7 @@ class CategorySubcategoryProductDAO {
         return $categories_subcategories_products;
     }
     
-    public function selectBySubcategoryId($idSubcategory) {
+    public function selectByCategoryAndSubcategoryId($idCategory, $idSubcategory) {
         $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
                 FROM categorias_subcategorias_produtos
                 INNER JOIN produtos
@@ -110,7 +110,7 @@ class CategorySubcategoryProductDAO {
                 ON categorias_subcategorias_produtos.id_categoria = categorias.id
                 INNER JOIN subcategorias
                 ON categorias_subcategorias_produtos.id_subcategoria = subcategorias.id
-                WHERE id_subcategoria=' . $idSubcategory;
+                WHERE id_categoria=' . $idCategory . ' AND id_subcategoria=' . $idSubcategory;
         $select = $this->connection->query($sql);
 
         $categories_subcategories_products = array();
