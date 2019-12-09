@@ -17,8 +17,10 @@ class ProductController {
     }
 
     public function insert() {
-        if ($this->productDAO->insert($this->product)) 
-            $json = array('status' => 'ok');
+        $insert = $this->productDAO->insert($this->product);
+
+        if ($insert[0]) 
+            $json = array('status' => 'ok', 'insertedId' => $insert[1]);
         else
             $json = array('status' => 'error');
 

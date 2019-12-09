@@ -1,7 +1,9 @@
+const baseUrl = 'http://localhost:80/daan/PHProject2SMT/pms/';
+
 function insert(controller, body, cb = null) {
     $.ajax({
         method: 'POST',
-        url: `routes.php?controller=${controller}&action=insert`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=insert`,
         data: body,
         dataType: 'json',
         success: cb,
@@ -12,7 +14,7 @@ function insert(controller, body, cb = null) {
 function update(controller, id, body, cb = null) {
     $.ajax({
         method: 'POST',
-        url: `routes.php?controller=${controller}&action=update&id=${id}`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=update&id=${id}`,
         data: body,
         dataType: 'json',
         success: cb,
@@ -23,7 +25,7 @@ function update(controller, id, body, cb = null) {
 function updateStatus(controller, id, status, cb = null) {
     $.ajax({
         method: 'PUT',
-        url: `routes.php?controller=${controller}&action=updateStatus&id=${id}&status=${status}`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=updateStatus&id=${id}&status=${status}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }
@@ -33,7 +35,17 @@ function updateStatus(controller, id, status, cb = null) {
 function remove(controller, id, cb = null) {
     $.ajax({
         method: 'DELETE',
-        url: `routes.php?controller=${controller}&action=delete&id=${id}`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=delete&id=${id}`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function removeByProductId(controller, id, cb) {
+    $.ajax({
+        method: 'GET',
+        url: `${baseUrl}routes.php?controller=${controller}&action=deleteByProductId&id=${id}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }
@@ -43,7 +55,37 @@ function remove(controller, id, cb = null) {
 function selectAll(controller, cb) {
     $.ajax({
         method: 'GET',
-        url: `routes.php?controller=${controller}&action=selectAll`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectAll`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function selectByProductId(controller, id, cb) {
+    $.ajax({
+        method: 'GET',
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectByProductId&id=${id}`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function selectByCategoryId(controller, id, cb) {
+    $.ajax({
+        method: 'GET',
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectByCategoryId&id=${id}`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function selectBySubcategoryId(controller, id, cb) {
+    $.ajax({
+        method: 'GET',
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectBySubcategoryId&id=${id}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }
@@ -53,7 +95,7 @@ function selectAll(controller, cb) {
 function selectById(controller, id, cb) {
     $.ajax({
         method: 'GET',
-        url: `routes.php?controller=${controller}&action=selectById&id=${id}`,
+        url: `${baseUrl}routes.php?controller=${controller}&action=selectById&id=${id}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }

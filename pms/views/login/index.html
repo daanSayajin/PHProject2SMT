@@ -48,6 +48,7 @@
                         if (user.email === txt_email && user.password === password_hash) {
                             sessionStorage.setItem("username", user.name);
                             location.href = 'index.php?page=home';
+                            return false;
                         }
                     });
 

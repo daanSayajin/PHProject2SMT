@@ -88,7 +88,7 @@
                 selectAll('subcategory', function(data) {
                     $('#tbl-data').empty();
 
-                    data.forEach(subcategory => {
+                    data.forEach(function(subcategory) {
                         $('#tbl-data').append(`
                             <tr>
                                 <td> 
@@ -143,6 +143,8 @@
                                 remove('subcategory', id, function(data) {
                                     if (data.status === 'ok') 
                                         refreshSubcategories();
+                                    else if (data.status === 'error') 
+                                        swal('Oops...', 'Existe um produto que pertence a essa subcategoria.', 'error');
                                 });
                             }
                         });

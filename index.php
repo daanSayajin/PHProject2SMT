@@ -47,61 +47,13 @@
                 <!-- Menu de navegação da loja -->
                 <nav id="area_menu_cardapio">
                     <ul id="menu_cardapio">
-                        <li class="menu_cardapio_itens"> Especiais da Casa 
-                            <ul class="submenu">
-                                <li class="submenu_itens"> Portuguesa </li>
-                                <li class="submenu_itens"> Moda A </li>
-                                <li class="submenu_itens"> Mussarela </li>
-                            </ul>
-                        </li>
-                        <li class="menu_cardapio_itens"> Veganas
-                            <ul class="submenu">
-                                <li class="submenu_itens"> Berinjela </li>
-                                <li class="submenu_itens"> Couve-flor </li>
-                                <li class="submenu_itens"> Batata Doce </li>
-                                <li class="submenu_itens"> Mandioca </li>
-                            </ul>
-                        </li>
-                        <li class="menu_cardapio_itens"> Doces
-                            <ul class="submenu">
-                                <li class="submenu_itens"> Ao leite </li>
-                                <li class="submenu_itens"> Amargo </li>
-                                <li class="submenu_itens"> Branco </li>
-                            </ul>
-                        </li>
+                
                     </ul>
                 </nav>
                 
                 <!-- Produtos -->
                 <div id="produtos">
-                    <?php 
-                    for ($i = 0; $i < 15; $i++) { ?>
-                        <div class="produto">
-                            <div class="foto_produto">
-                                <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
-                            </div>
-                            
-                            <div class="informacoes_produto">
-                                <p>
-                                    <span class="bold"> Nome: </span> Pizza de Pepperoni
-                                </p>
-
-                                <p>
-                                    <span class="bold"> Descrição: </span> Pizza de calabresa com pimenta, queijo mussarela e molho de tomate.
-                                </p>
-
-                                <p class="preco bold">
-                                    R$ 30,00
-                                </p>
-
-                                <div id="detalhes-align">
-                                    <a>
-                                        Detalhes
-                                    </a>
-                                </div>
-                            </div>
-                        </div>  
-                    <?php } ?>
+                    
                 </div>
             </div>
         </section>
@@ -115,5 +67,144 @@
         <script src="js/jquery.js"></script>
         <script src="js/flickity.js"></script>
         <script src="js/slider.js"></script>
+        <script src="pms/js/modules.js"></script>
+        <script>
+            function getShuffledArr(arr) {
+                const newArr = arr.slice();
+                for (let i = newArr.length - 1; i > 0; i--) {
+                    const rand = Math.floor(Math.random() * (i + 1));
+                    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+                }
+                return newArr;
+            };
+
+            $(document).ready(function() {
+                selectAll('categorySubcategoryProduct', function(data) {
+                    let products = [];
+
+                    data.find(function(product, i) {
+                        products.push({ name: product.name, description: product.description, price: product.price }); 
+                    });
+
+                    products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));
+                    products = getShuffledArr(products);
+
+                    products.forEach(function(product) {
+                        $('#produtos').append(`
+                            <div class="produto">
+                                <div class="foto_produto">
+                                    <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
+                                </div>
+                                
+                                <div class="informacoes_produto">
+                                    <p>
+                                        <span class="bold"> Nome: </span> ${product.name}
+                                    </p>
+
+                                    <p>
+                                        <span class="bold"> Descrição: </span> ${product.description === '' ? '-' : product.description}  
+                                    </p>
+
+                                    <p class="preco bold">
+                                        ${'R$ ' + parseFloat(product.price).toFixed(2).replace('.', ',')} 
+                                    </p>
+
+                                    <div id="detalhes-align">
+                                        <a>
+                                            Detalhes
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>  
+                        `);
+                    });
+                });
+            });
+
+            $(document).ready(function() {
+                selectAll('category', function(data) {
+                    data.forEach(function(category) {
+                        $('#menu_cardapio').append(`
+                            <li class="menu_cardapio_itens" data-id="${category.id}"> ${category.name}
+                                <ul class="submenu" data-id="${category.id}">
+                                    
+                                </ul>
+                            </li>
+                        `);                  
+                    });
+
+                    for (let i = 0; i < $('.submenu').length; i++) {
+                        selectByCategoryId('categorySubcategoryProduct', $('.submenu').eq(i).data('id'), function(data) {
+                            let subcategories = [];
+
+                            data.find(function(product, i) {
+                                subcategories.push(product.id_subcategory + ',' + product.subcategory); 
+                            });
+
+                            subcategories = new Set(subcategories);
+
+                            subcategories.forEach(function(subcategory) {
+                                subcategory = subcategory.split(',');
+                                $('.submenu').eq(i).append(`
+                                    <li class="submenu_itens" data-id="${subcategory[0]}">${subcategory[1]}</li>
+                                `);
+                            });
+                        }); 
+                    }
+
+                    $('.menu_cardapio_itens').click(function(event) {
+                        const id = event.currentTarget.dataset.id;
+
+                        selectByCategoryId('categorySubcategoryProduct', id, function(data) {
+                            $('#produtos').empty();
+
+                            let products = [];
+
+                            data.find(function(product, i) {
+                                products.push({ name: product.name, description: product.description, price: product.price }); 
+                            });
+
+                            products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));
+
+                            products.forEach(function(product) {
+                                $('#produtos').append(`
+                                    <div class="produto">
+                                        <div class="foto_produto">
+                                            <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
+                                        </div>
+                                        
+                                        <div class="informacoes_produto">
+                                            <p>
+                                                <span class="bold"> Nome: </span> ${product.name}
+                                            </p>
+
+                                            <p>
+                                                <span class="bold"> Descrição: </span> ${product.description === '' ? '-' : product.description}  
+                                            </p>
+
+                                            <p class="preco bold">
+                                                ${'R$ ' + parseFloat(product.price).toFixed(2).replace('.', ',')} 
+                                            </p>
+
+                                            <div id="detalhes-align">
+                                                <a>
+                                                    Detalhes
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                `);
+                            });
+                        });
+                    });  
+
+                    $('.submenu_itens').click(function(event) {
+                        alert('a');
+                    });  
+                });
+
+                    
+            });
+        </script>
     </body>
 </html>

@@ -335,8 +335,7 @@ img {
     
     .produto {
         width: 300px;
-        min-height: 326px;
-        height: auto;
+        height: 400px;
         float: left;
         margin-right: 25px;
         margin-bottom: 25px;
@@ -351,12 +350,14 @@ img {
     }
 
     .informacoes_produto {
+        height: 220px;
         box-sizing: border-box;
         padding-top: 17px;
         padding-left: 20px;
         padding-right: 20px;
         padding-bottom: 20px;
         text-align: left;
+        position: relative;
     }
 
     .informacoes_produto p {
@@ -366,6 +367,9 @@ img {
     }
 
     .informacoes_produto a {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
         font-family: Roboto, 'Segoe UI', Tahoma;
         letter-spacing: 0.7px;
         font-weight: bold;
@@ -373,7 +377,6 @@ img {
         padding: 5px;
         box-sizing: border-box;
         background-color: #171717;
-        margin-left: 186px;
         transition: .3s;
     }
 

@@ -26,12 +26,17 @@ class ProductDAO {
             $product->getIsProductOfTheMonth()
         );
 
-        return $stm->execute($stmData);
+        if ($product->getIsProductOfTheMonth()) {
+            $sqlTurnOffProductOfTheMonth = 'UPDATE produtos SET produto_mes=0 WHERE id<>' . $this->connection->lastInsertId();
+            $this->connection->query($sqlTurnOffProductOfTheMonth);
+        }
+
+        return array($stm->execute($stmData), $this->connection->lastInsertId());
     }
 
     public function update(Product $product) {
         $sql = 'UPDATE produtos SET nome=?, descricao=?, preco=?, desconto=?, produto_mes=? WHERE id=?';
-        
+
         $stm = $this->connection->prepare($sql);
         $stmData = array(
             $product->getName(),
@@ -41,6 +46,11 @@ class ProductDAO {
             $product->getIsProductOfTheMonth(),
             $product->getId()
         );
+
+        if ($product->getIsProductOfTheMonth()) {
+            $sqlTurnOffProductOfTheMonth = 'UPDATE produtos SET produto_mes=0 WHERE id<>' . $product->getId();
+            $this->connection->query($sqlTurnOffProductOfTheMonth);
+        }
 
         return $stm->execute($stmData);
     }
