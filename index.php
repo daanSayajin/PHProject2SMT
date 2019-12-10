@@ -139,7 +139,7 @@
                                         products = products.filter((product, i) => i === products.findIndex((product2) => (product.id === product2.id)));
                                         
                                         drawProducts(products);
-                                    })
+                                    });
                                 });  
                             });
                         }); 

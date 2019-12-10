@@ -57,6 +57,7 @@ class CategorySubcategoryProductController {
                 'price' => $categorySubcategoryProduct->getProduct()->getPrice(),
                 'discount' => $categorySubcategoryProduct->getProduct()->getDiscount(),
                 'isProductOfTheMonth' => boolval($categorySubcategoryProduct->getProduct()->getIsProductOfTheMonth()),
+                'image' => $categorySubcategoryProduct->getProduct()->getImagePath(),
                 'category' => $categorySubcategoryProduct->getCategory()->getName(),
                 'subcategory' => $categorySubcategoryProduct->getSubcategory()->getName(),
                 'status' => boolval($categorySubcategoryProduct->getProduct()->getStatus())
@@ -80,6 +81,7 @@ class CategorySubcategoryProductController {
                 'price' => $categorySubcategoryProduct->getProduct()->getPrice(),
                 'discount' => $categorySubcategoryProduct->getProduct()->getDiscount(),
                 'isProductOfTheMonth' => boolval($categorySubcategoryProduct->getProduct()->getIsProductOfTheMonth()),
+                'image' => $categorySubcategoryProduct->getProduct()->getImagePath(),
                 'category' => $categorySubcategoryProduct->getCategory()->getName(),
                 'subcategory' => $categorySubcategoryProduct->getSubcategory()->getName(),
                 'status' => boolval($categorySubcategoryProduct->getProduct()->getStatus())
@@ -103,6 +105,7 @@ class CategorySubcategoryProductController {
                 'price' => $categorySubcategoryProduct->getProduct()->getPrice(),
                 'discount' => $categorySubcategoryProduct->getProduct()->getDiscount(),
                 'isProductOfTheMonth' => boolval($categorySubcategoryProduct->getProduct()->getIsProductOfTheMonth()),
+                'image' => $categorySubcategoryProduct->getProduct()->getImagePath(),
                 'category' => $categorySubcategoryProduct->getCategory()->getName(),
                 'subcategory' => $categorySubcategoryProduct->getSubcategory()->getName(),
                 'status' => boolval($categorySubcategoryProduct->getProduct()->getStatus())
@@ -126,6 +129,7 @@ class CategorySubcategoryProductController {
                 'price' => $categorySubcategoryProduct->getProduct()->getPrice(),
                 'discount' => $categorySubcategoryProduct->getProduct()->getDiscount(),
                 'isProductOfTheMonth' => boolval($categorySubcategoryProduct->getProduct()->getIsProductOfTheMonth()),
+                'image' => $categorySubcategoryProduct->getProduct()->getImagePath(),
                 'category' => $categorySubcategoryProduct->getCategory()->getName(),
                 'subcategory' => $categorySubcategoryProduct->getSubcategory()->getName(),
                 'status' => boolval($categorySubcategoryProduct->getProduct()->getStatus())

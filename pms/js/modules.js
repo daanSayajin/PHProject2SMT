@@ -1,11 +1,13 @@
-const baseUrl = 'http://localhost:80/daan/PHProject2SMT/pms/';
+const baseUrl = 'http://localhost:80/ds2t20192/Daniel%20B/PHProject2SMT/pms/';
 
-function insert(controller, body, cb = null) {
+function insert(controller, body, cb = null, formData = false) {
     $.ajax({
         method: 'POST',
         url: `${baseUrl}routes.php?controller=${controller}&action=insert`,
         data: body,
         dataType: 'json',
+        processData: !formData ? true : false,
+        contentType: !formData? 'application/x-www-form-urlencoded' : false,
         success: cb,
         error: function(err) { console.log(err.responseText) }
     });

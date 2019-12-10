@@ -397,7 +397,8 @@ p {
         resize: none;
     }
 
-    #cms-main-content #handle-content form label#thumbnail {
+    #cms-main-content #handle-content form label#thumbnail,
+    #pms-main-content form div label#thumbnail {
         width: 500px;
         margin-left: 20px;
         margin-top: 3px;
@@ -413,7 +414,8 @@ p {
         align-items: center;
     }
 
-    #cms-main-content #handle-content form label#thumbnail input {
+    #cms-main-content #handle-content form label#thumbnail input,
+    #pms-main-content form div label#thumbnail input {
         display: none;
     }
 

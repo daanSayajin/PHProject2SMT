@@ -68,7 +68,7 @@
                     <strong> Administração de Produtos </strong>
                 </h1>
             
-                <form id="frm_product">
+                <form id="frm_product" enctype="multipart/form-data">
                     <div>
                         <input type="text" id="txt_name" placeholder="Nome do Produto*" required style="width: 47%; margin-right: 1%" />
                         <input type="text" id="txt_price" placeholder="Preço*" required style="width: 17%; margin-right: 1%" />
@@ -85,7 +85,13 @@
                             
                         </select>
                     </div>
-                    <textarea id="txt_description" placeholder="Descrição do Produto*"></textarea>
+                    <div>
+                        <textarea id="txt_description" placeholder="Descrição do Produto*" style="height: 140px"></textarea>
+                        <label id="thumbnail">
+                            <input type="file" id="productImg" accept="image/png, image/jpeg, image/jpg" required />
+                            <img src="../cms/img/camera.svg" id="camera-icon" alt="Select icon"/>
+                        </label>
+                    </div>
                     <input type="submit" id="btn_submit" value="Cadastrar" /> 
                 </form>
 
@@ -103,7 +109,7 @@
         <script>
             $(document).ready(handleSessionStorage('#lbl_username'));
             $('#btn_logout').click(handleLogout);
-            
+
             $('#txt_price').inputmask('decimal', {
                 alias: 'numeric',
                 groupSeparator: '.',
@@ -124,7 +130,8 @@
                 suffix: " %",
                 rightAlign: false,
                 min: 0,
-                max: 100
+                max: 100,
+                removeMaskOnSubmit: true
             });
 
             $(document).ready(function() {
@@ -212,7 +219,7 @@
                     $(document).ready(function() {
                         for (let i = 0; i < $('.category').length; i++) {
                             const category = $('.category').eq(i);
-
+                            
                             selectByProductId('categorySubcategoryProduct', category[0].dataset.id, function(data) {
                                 $(category).html(data[0].category);
                             });
@@ -281,14 +288,33 @@
             $('#frm_product').submit(function(event) {
                 event.preventDefault();
 
+                const file = $(this).find("input[type=file]")[0].files[0];
+                
+                if (file) {
+                    if (file.size / 1024 >= 2000) {
+                        swal('Oops...', 'O tamanho da imagem selecionada ultrapassou 2 megabytes!', 'error');
+                        return;
+                    }
+
+                    const validExts = ['jpg', 'png', 'jpeg'];
+                    const fileExt = file.name.split('.')[1];
+                    if ($.inArray(fileExt, validExts) === -1) {
+                        swal('Oops...', 'A extensão do arquivo selecionado não é permitida!', 'error');
+                        return;
+                    }
+                }
+
+                const data = new FormData();
+                data.append('name', $('#txt_name').val());
+                data.append('description', $('#txt_description').val());
+                data.append('price', $('#txt_price').val().replace(',', '.'));
+                data.append('discount', $('#txt_discount').val() ? $('#txt_discount').val() : 0);
+                data.append('isProductOfTheMonth', $('#chk_productOfTheMonth').is(':checked'));
+                data.append('image', file);
+
                 if ($('#btn_submit').val() === 'Cadastrar') {
-                    insert('product', {
-                        name: $('#txt_name').val(),
-                        description: $('#txt_description').val(),
-                        price: $('#txt_price').val().replace(',', '.'),
-                        discount: $('#txt_discount').val(),
-                        isProductOfTheMonth: $('#chk_productOfTheMonth').is(':checked'),
-                    }, function(data) {
+                    insert('product', data, function(data) {
+                        console.log(data);
                         if (data.status === 'ok') {
                             $('#slt_subcategories').val().forEach(function(subcategory) {
                                 insert('categorySubcategoryProduct', { 
@@ -309,7 +335,7 @@
                             refreshProducts();
                             swal('Yay!', 'Produto cadastrado com sucesso!', 'success');
                         }
-                    });
+                    }, true);
                 } else if ($('#btn_submit').val() === 'Atualizar') {
                     update('product', $('#btn_submit').data('id'), {
                         name: $('#txt_name').val(),
@@ -349,6 +375,20 @@
                         }
                     });
                 }
+            });
+
+            $(document).ready(function() {
+                const $imageCuriosity = document.getElementById('productImg');
+                const $thumbnail = document.getElementById('thumbnail');
+                const $cameraIcon = document.getElementById('camera-icon');
+                
+                $imageCuriosity.addEventListener('change', function(event) {
+                    const url = URL.createObjectURL(event.target.files[0]);
+
+                    $thumbnail.style.backgroundImage = `url(${url})`;
+                    $thumbnail.style.border = 'none';
+                    $cameraIcon.style.display = 'none';
+                });
             });
         </script>
     </body>

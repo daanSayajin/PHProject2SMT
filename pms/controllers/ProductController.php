@@ -5,6 +5,9 @@ if (!file_exists(include_once('models/Product.php')))
 if (!file_exists(include_once('models/DAO/ProductDAO.php'))) 
     include_once('models/DAO/ProductDAO.php');
 
+if (!file_exists(include_once('../cms/include/upload.php'))) 
+    include_once('../cms/include/upload.php');
+
 class ProductController {
     private $productDAO;
     private $product;
@@ -17,12 +20,19 @@ class ProductController {
     }
 
     public function insert() {
-        $insert = $this->productDAO->insert($this->product);
+        $uploadedFile = uploadImage('image', 'uploads/');
 
-        if ($insert[0]) 
-            $json = array('status' => 'ok', 'insertedId' => $insert[1]);
-        else
+        if (!$uploadedFile) 
             $json = array('status' => 'error');
+        else {
+            $this->product->setImagePath($uploadedFile);
+            $insert = $this->productDAO->insert($this->product);
+
+            if ($insert[0]) 
+                $json = array('status' => 'ok', 'insertedId' => $insert[1]);
+            else
+                $json = array('status' => 'error');
+        }   
 
         return json_encode($json);
     }

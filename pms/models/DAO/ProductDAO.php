@@ -14,8 +14,8 @@ class ProductDAO {
     }
 
     public function insert(Product $product) {
-        $sql = 'INSERT INTO produtos (nome, descricao, preco, desconto, produto_mes)
-                VALUES (?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO produtos (nome, descricao, preco, desconto, produto_mes, imagem)
+                VALUES (?, ?, ?, ?, ?, ?)';
 
         $stm = $this->connection->prepare($sql);
         $stmData = array(
@@ -23,7 +23,8 @@ class ProductDAO {
             $product->getDescription(),
             $product->getPrice(),
             $product->getDiscount(),
-            $product->getIsProductOfTheMonth()
+            $product->getIsProductOfTheMonth(),
+            $product->getImagePath()
         );
 
         if ($product->getIsProductOfTheMonth()) {

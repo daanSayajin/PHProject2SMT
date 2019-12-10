@@ -5,15 +5,17 @@ class Product {
     private $price;
     private $discount;
 	private $isProductOfTheMonth;
+	private $imagePath;
 	private $status;
 	private $id;
 
-    public function __construct($name, $description, $price, $discount, $isProductOfTheMonth, $status = true, $id = '') {
+    public function __construct($name, $description, $price, $discount, $isProductOfTheMonth, $imagePath = null, $status = true, $id = '') {
 		$this->name = $name;
 		$this->description = $description;
 		$this->price = $price;
 		$this->discount = $discount;
 		$this->isProductOfTheMonth = $isProductOfTheMonth;
+		$this->imagePath = $imagePath;
 		$this->status = $status;
         $this->id = $id; 
     }
@@ -57,6 +59,14 @@ class Product {
 	public function setIsProductOfTheMonth($isProductOfTheMonth) {
 		$this->isProductOfTheMonth = $isProductOfTheMonth;
 	}
+
+	public function getImagePath() {
+        return $this->imagePath;
+    }
+
+    public function setImagePath($imagePath) {
+        $this->imagePath = $imagePath;
+    }
 
 	public function getStatus() {
         return $this->status;
