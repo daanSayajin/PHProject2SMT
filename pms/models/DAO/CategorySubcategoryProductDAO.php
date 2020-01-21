@@ -37,7 +37,7 @@ class CategorySubcategoryProductDAO {
     }
 
     public function selectAll() {
-        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
+        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, produtos.cliques, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
                 FROM categorias_subcategorias_produtos
                 INNER JOIN produtos
                 ON categorias_subcategorias_produtos.id_produto = produtos.id
@@ -50,7 +50,7 @@ class CategorySubcategoryProductDAO {
         $categories_subcategories_products = array();
 
         while ($rsCategorySubcategoryProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
+            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['cliques'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
 
         return $categories_subcategories_products;
     }
@@ -62,7 +62,7 @@ class CategorySubcategoryProductDAO {
     }
 
     public function selectByProductId($idProduct) {
-        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
+        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, produtos.cliques, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
                 FROM categorias_subcategorias_produtos
                 INNER JOIN produtos
                 ON categorias_subcategorias_produtos.id_produto = produtos.id
@@ -76,13 +76,13 @@ class CategorySubcategoryProductDAO {
         $categories_subcategories_products = array();
 
         while ($rsCategorySubcategoryProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
+            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['cliques'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
 
         return $categories_subcategories_products;
     }
 
     public function selectByCategoryId($idCategory) {
-        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
+        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, produtos.cliques, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
                 FROM categorias_subcategorias_produtos
                 INNER JOIN produtos
                 ON categorias_subcategorias_produtos.id_produto = produtos.id
@@ -96,13 +96,13 @@ class CategorySubcategoryProductDAO {
         $categories_subcategories_products = array();
 
         while ($rsCategorySubcategoryProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
+            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['cliques'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
 
         return $categories_subcategories_products;
     }
     
     public function selectByCategoryAndSubcategoryId($idCategory, $idSubcategory) {
-        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
+        $sql = 'SELECT categorias_subcategorias_produtos.*, produtos.nome, produtos.descricao, produtos.preco, produtos.desconto, produtos.produto_mes, produtos.imagem, produtos.cliques, categorias.nome AS categoria, subcategorias.nome AS subcategoria, produtos.status
                 FROM categorias_subcategorias_produtos
                 INNER JOIN produtos
                 ON categorias_subcategorias_produtos.id_produto = produtos.id
@@ -116,7 +116,7 @@ class CategorySubcategoryProductDAO {
         $categories_subcategories_products = array();
 
         while ($rsCategorySubcategoryProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
+            $categories_subcategories_products[] = new CategorySubcategoryProduct(new Category($rsCategorySubcategoryProduct['categoria'], true, $rsCategorySubcategoryProduct['id_categoria']), new Subcategory($rsCategorySubcategoryProduct['subcategoria'], true, $rsCategorySubcategoryProduct['id_subcategoria']), new Product($rsCategorySubcategoryProduct['nome'], $rsCategorySubcategoryProduct['descricao'], $rsCategorySubcategoryProduct['preco'], $rsCategorySubcategoryProduct['desconto'], $rsCategorySubcategoryProduct['produto_mes'], $rsCategorySubcategoryProduct['imagem'], $rsCategorySubcategoryProduct['status'], $rsCategorySubcategoryProduct['cliques'], $rsCategorySubcategoryProduct['id_produto']), $rsCategorySubcategoryProduct['id']);
 
         return $categories_subcategories_products;
     }

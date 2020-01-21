@@ -3,7 +3,7 @@ function drawProducts(products) {
         $('#produtos').append(`
             <div class="produto">
                 <div class="foto_produto">
-                    <img src="img/pepperoni.jpg" class="produto_imagem" alt="Pizza Pepperoni">
+                    <img src="pms/uploads/${product.image}" class="produto_imagem" alt="Pizza Pepperoni">
                 </div>
                 
                 <div class="informacoes_produto">
@@ -20,12 +20,21 @@ function drawProducts(products) {
                     </p>
 
                     <div id="detalhes-align">
-                        <a>
+                        <a class="details" data-id="${product.id}">
                             Detalhes
                         </a>
                     </div>
                 </div>
             </div>  
         `);
+    });
+
+    $('.details').click(function(event) {
+        const id = event.currentTarget.dataset.id;
+
+        incrementClick('product', id, function(data) {
+            console.log(data.status);
+            alert('modal');
+        });
     });
 }

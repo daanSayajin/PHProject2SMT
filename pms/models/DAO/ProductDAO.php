@@ -35,18 +35,33 @@ class ProductDAO {
         return array($stm->execute($stmData), $this->connection->lastInsertId());
     }
 
-    public function update(Product $product) {
-        $sql = 'UPDATE produtos SET nome=?, descricao=?, preco=?, desconto=?, produto_mes=? WHERE id=?';
+    public function update(Product $product, $updateImage) {
+        if (!$updateImage) {
+            $sql = 'UPDATE produtos SET nome=?, descricao=?, preco=?, desconto=?, produto_mes=? WHERE id=?';
 
-        $stm = $this->connection->prepare($sql);
-        $stmData = array(
-            $product->getName(),
-            $product->getDescription(),
-            $product->getPrice(),
-            $product->getDiscount(),
-            $product->getIsProductOfTheMonth(),
-            $product->getId()
-        );
+            $stm = $this->connection->prepare($sql);
+            $stmData = array(
+                $product->getName(),
+                $product->getDescription(),
+                $product->getPrice(),
+                $product->getDiscount(),
+                $product->getIsProductOfTheMonth(),
+                $product->getId()
+            );
+        } else {
+            $sql = 'UPDATE produtos SET nome=?, descricao=?, preco=?, desconto=?, produto_mes=?, imagem=? WHERE id=?';
+
+            $stm = $this->connection->prepare($sql);
+            $stmData = array(
+                $product->getName(),
+                $product->getDescription(),
+                $product->getPrice(),
+                $product->getDiscount(),
+                $product->getIsProductOfTheMonth(),
+                $product->getImagePath(),
+                $product->getId()
+            );
+        } 
 
         if ($product->getIsProductOfTheMonth()) {
             $sqlTurnOffProductOfTheMonth = 'UPDATE produtos SET produto_mes=0 WHERE id<>' . $product->getId();
@@ -68,6 +83,12 @@ class ProductDAO {
         return $stm->execute($stmData);
     }
 
+    public function incrementClick($id) {
+        $sql = "UPDATE produtos SET cliques=cliques+1 WHERE id={$id}";
+
+        return $this->connection->query($sql);
+    }
+
     public function delete($id) {
         $sql = "DELETE FROM produtos WHERE id={$id}";
     
@@ -81,7 +102,7 @@ class ProductDAO {
         $products = array();
 
         while ($rsProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $products[] = new Product($rsProduct['nome'], $rsProduct['descricao'], $rsProduct['preco'], $rsProduct['desconto'], $rsProduct['produto_mes'], $rsProduct['status'], $rsProduct['id']);
+            $products[] = new Product($rsProduct['nome'], $rsProduct['descricao'], $rsProduct['preco'], $rsProduct['desconto'], $rsProduct['produto_mes'], $rsProduct['imagem'], $rsProduct['cliques'], $rsProduct['status'], $rsProduct['id']);
 
         return $products;
     }
@@ -93,7 +114,7 @@ class ProductDAO {
         $product = array();
 
         if ($rsProduct = $select->fetch(PDO::FETCH_ASSOC)) 
-            $product = new Product($rsProduct['nome'], $rsProduct['descricao'], $rsProduct['preco'], $rsProduct['desconto'], $rsProduct['produto_mes'], $rsProduct['status'], $rsProduct['id']);
+            $product = new Product($rsProduct['nome'], $rsProduct['descricao'], $rsProduct['preco'], $rsProduct['desconto'], $rsProduct['produto_mes'], $rsProduct['imagem'], $rsProduct['cliques'], $rsProduct['status'], $rsProduct['id']);
 
         return $product;
     }

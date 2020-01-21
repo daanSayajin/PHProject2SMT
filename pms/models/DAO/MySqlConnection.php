@@ -8,7 +8,7 @@ class MySqlConnection {
     public function __construct() {
         $this->host = "localhost";
         $this->user = "root";
-        $this->password = "bcd127";
+        $this->password = "";
         $this->database = "db_frajolas";
     }
 

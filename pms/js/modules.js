@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:80/ds2t20192/Daniel%20B/PHProject2SMT/pms/';
+const baseUrl = 'http://localhost:80/daan/PHProject2SMT/pms/';
 
 function insert(controller, body, cb = null, formData = false) {
     $.ajax({
@@ -7,18 +7,20 @@ function insert(controller, body, cb = null, formData = false) {
         data: body,
         dataType: 'json',
         processData: !formData ? true : false,
-        contentType: !formData? 'application/x-www-form-urlencoded' : false,
+        contentType: !formData ? 'application/x-www-form-urlencoded' : false,
         success: cb,
         error: function(err) { console.log(err.responseText) }
     });
 }
 
-function update(controller, id, body, cb = null) {
+function update(controller, id, body, cb = null, formData = false) {
     $.ajax({
         method: 'POST',
         url: `${baseUrl}routes.php?controller=${controller}&action=update&id=${id}`,
         data: body,
         dataType: 'json',
+        processData: !formData ? true : false,
+        contentType: !formData ? 'application/x-www-form-urlencoded' : false,
         success: cb,
         error: function(err) { console.log(err.responseText) }
     });
@@ -28,6 +30,16 @@ function updateStatus(controller, id, status, cb = null) {
     $.ajax({
         method: 'PUT',
         url: `${baseUrl}routes.php?controller=${controller}&action=updateStatus&id=${id}&status=${status}`,
+        dataType: 'json',
+        success: cb,
+        error: function(err) { console.log(err.responseText) }
+    });
+}
+
+function incrementClick(controller, id, cb = null) {
+    $.ajax({
+        method: 'DELETE',
+        url: `${baseUrl}routes.php?controller=${controller}&action=incrementClick&id=${id}`,
         dataType: 'json',
         success: cb,
         error: function(err) { console.log(err.responseText) }

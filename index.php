@@ -84,7 +84,7 @@
                     let products = [];
 
                     data.find(function(product, i) {
-                        products.push({ name: product.name, description: product.description, price: product.price }); 
+                        products.push({ id: product.id_product, name: product.name, description: product.description, price: product.price, image: product.image }); 
                     });
 
                     products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));
@@ -133,7 +133,7 @@
                                         let products = [];
 
                                         data.find(function(product, i) {
-                                            products.push({ id: product.id_product, name: product.name, description: product.description, price: product.price }); 
+                                            products.push({ id: product.id_product, name: product.name, description: product.description, price: product.price, image: product.image }); 
                                         });
 
                                         products = products.filter((product, i) => i === products.findIndex((product2) => (product.id === product2.id)));
@@ -154,7 +154,7 @@
                             let products = [];
 
                             data.find(function(product, i) {
-                                products.push({ name: product.name, description: product.description, price: product.price }); 
+                                products.push({ id: product.id_product, name: product.name, description: product.description, price: product.price, image: product.image }); 
                             });
 
                             products = products.filter((product, i) => i === products.findIndex((product2) => (product.name === product2.name && product.description === product2.description && product.price === product2.price)));

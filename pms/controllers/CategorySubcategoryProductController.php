@@ -22,7 +22,7 @@ class CategorySubcategoryProductController {
         $this->categorySubcategoryProductDAO = new CategorySubcategoryProductDAO();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
-            $this->categorySubcategoryProduct = new CategorySubcategoryProduct(new Category(null, null, $_POST['id_category']), new Subcategory(null, null, $_POST['id_subcategory']), new Product(null, null, null, null, null, null, $_POST['id_product']));
+            $this->categorySubcategoryProduct = new CategorySubcategoryProduct(new Category(null, null, $_POST['id_category']), new Subcategory(null, null, $_POST['id_subcategory']), new Product(null, null, null, null, null, null, null, null, $_POST['id_product']));
     }
 
     public function insert() {

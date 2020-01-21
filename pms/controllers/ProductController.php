@@ -40,7 +40,20 @@ class ProductController {
     public function update($id) {
         $this->product->setId($id);
 
-        if ($this->productDAO->update($this->product)) 
+        if (isset($_FILES['image'])) {
+            $uploadedFile = uploadImage('image', 'uploads/');
+
+            if (!$uploadedFile)
+                $json = array('status' => 'error');
+            else {
+                $this->product->setImagePath($uploadedFile);
+
+                $product = $this->productDAO->selectById($id);
+                unlink('uploads/' . $product->getImagePath());
+            }
+        }
+
+        if ($this->productDAO->update($this->product, isset($_FILES['image']) ? true : false)) 
             $json = array('status' => 'ok');
         else
             $json = array('status' => 'error');
@@ -57,8 +70,20 @@ class ProductController {
         return json_encode($json);
     }
 
+    public function incrementClick($id) {
+        if ($this->productDAO->incrementClick($id))
+            $json = array('status' => 'ok');
+        else
+            $json = array('status' => 'error');
+
+        return json_encode($json);
+    }
+
     public function delete($id) {
-        if ($this->productDAO->delete($id)) 
+        $product = $this->productDAO->selectById($id);
+        unlink('uploads/' . $product->getImagePath());
+
+        if ($this->productDAO->delete($id))
             $json = array('status' => 'ok');
         else
             $json = array('status' => 'error');
@@ -77,6 +102,8 @@ class ProductController {
                 'price' => $product->getPrice(),
                 'discount' => $product->getDiscount(),
                 'isProductOfTheMonth' => boolval($product->getIsProductOfTheMonth()),
+                'image' => $product->getImagePath(),
+                'clicks' => $product->getClicks(),
                 'status' => boolval($product->getStatus())
             ));
         }
@@ -93,6 +120,8 @@ class ProductController {
                 'price' => $product->getPrice(),
                 'discount' => $product->getDiscount(),
                 'isProductOfTheMonth' => boolval($product->getIsProductOfTheMonth()),
+                'image' => $product->getImagePath(),
+                'clicks' => $product->getClicks(),
                 'status' => ($product->getStatus())
             );
         }

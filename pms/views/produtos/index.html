@@ -11,6 +11,18 @@
         <title>Frajola's Pizzaria - PMS</title>
     </head>
     <body>
+        <div id="modal-container">
+            <div id="modal">    
+                <header>
+                    <img src="../cms/img/remove.png" title="Fechar" id="modal-close" />
+                </header>
+
+                <div id="modal-data">
+
+                </div>
+            </div>
+        </div>
+
         <header id="cms-header">
             <div class="content center">
                 <a href="?page=home">
@@ -147,17 +159,21 @@
 
                 selectAll('category', function(data) {
                     data.forEach(function(category) {
-                        $('#slt_categories').append(`
-                            <option value="${category.id}">${category.name}</option>
-                        `);
+                        if (category.status) {
+                            $('#slt_categories').append(`
+                                <option value="${category.id}">${category.name}</option>
+                            `);
+                        }
                     });
                 });
 
                 selectAll('subcategory', function(data) {
                     data.forEach(function(subcategory) {
-                        $('#slt_subcategories').append(`
-                            <option value="${subcategory.id}">${subcategory.name}</option>
-                        `);
+                        if (subcategory.status) {
+                            $('#slt_subcategories').append(`
+                                <option value="${subcategory.id}">${subcategory.name}</option>
+                            `);
+                        }
                     });
                 });
             });
@@ -194,6 +210,10 @@
                                 </td>
                                 <td> 
                                     <a>
+                                        <img src="../cms/img/search.png" class="details" alt="Detalhes" title="Detalhes" data-id="${product.id}" />
+                                    </a>    
+
+                                    <a>
                                         <img src="../cms/img/edit.png" class="update" alt="Editar" title="Editar" data-id="${product.id}" />
                                     </a>
 
@@ -215,16 +235,6 @@
                         <td>ESTADO</td>
                         <td>OPÇÕES</td>
                     </tr>`);
-
-                    $(document).ready(function() {
-                        for (let i = 0; i < $('.category').length; i++) {
-                            const category = $('.category').eq(i);
-                            
-                            selectByProductId('categorySubcategoryProduct', category[0].dataset.id, function(data) {
-                                $(category).html(data[0].category);
-                            });
-                        }
-                    });
 
                     $('.updateStatus').click(function(event) {
                         const id = event.currentTarget.dataset.id;
@@ -266,7 +276,14 @@
                             $('#txt_discount').val(data.discount);
                             $('#chk_productOfTheMonth').prop('checked', data.isProductOfTheMonth);
                             $('#btn_submit').data('id', id);
+                            
+                            $('#thumbnail').css('background-image', `url(uploads/${data.image})`);
+                            $('#thumbnail').css('border', 'none');
+                            $('#camera-icon').css('display', 'none');
+
                             $('#btn_submit').val('Atualizar');
+
+                            $('#productImg').removeAttr('required');
 
                             selectByProductId('categorySubcategoryProduct', id, function(data) {
                                 $('#slt_categories').val(data[0].id_category).trigger('change');
@@ -279,6 +296,40 @@
                                 $('#slt_subcategories').val(selectedSubcategories).trigger('change');
                             });
                         });
+                    });
+
+                    for (let i = 0; i < $('.category').length; i++) {
+                        const category = $('.category').eq(i);
+                        
+                        selectByProductId('categorySubcategoryProduct', category[0].dataset.id, function(data) {
+                            $(category).html(data[0].category);
+                        });
+                    }
+
+                    /* Show modal */
+                    $(document).ready(function() {
+                        $('.details').click(function() {
+                            $('#modal-container').show();
+                        })
+                    });
+
+                    /* Hide modal on 'modal-close' click */
+                    $(document).ready(function() {
+                        $('#modal-close').click(function() {
+                            $('#modal-container').fadeOut(50);
+                        })
+                    });
+
+                    /* Hide modal if you click anything other than it */
+                    $(document).click(function(event) {
+                        if (!$(event.target).closest('#modal, .details').length) 
+                            $("#modal-container").fadeOut(50);
+                    });
+
+                    /* Hide modal on press esc */
+                    $(document).keyup(function(event) {
+                        if (event.key === "Escape") 
+                            $("#modal-container").fadeOut(50);
                     });
                 });
             }
@@ -314,7 +365,6 @@
 
                 if ($('#btn_submit').val() === 'Cadastrar') {
                     insert('product', data, function(data) {
-                        console.log(data);
                         if (data.status === 'ok') {
                             $('#slt_subcategories').val().forEach(function(subcategory) {
                                 insert('categorySubcategoryProduct', { 
@@ -331,19 +381,17 @@
                             $('#chk_productOfTheMonth').prop('checked', false);
                             $("#slt_categories").val('').trigger('change');
                             $("#slt_subcategories").val('').trigger('change');
+
+                            $('#thumbnail').css('background-image', '');
+                            $('#thumbnail').css('background-image', '2px dashed #ddd');
+                            $('#camera-icon').css('display', 'block');
                             
                             refreshProducts();
                             swal('Yay!', 'Produto cadastrado com sucesso!', 'success');
                         }
                     }, true);
                 } else if ($('#btn_submit').val() === 'Atualizar') {
-                    update('product', $('#btn_submit').data('id'), {
-                        name: $('#txt_name').val(),
-                        description: $('#txt_description').val(),
-                        price: $('#txt_price').val().replace(',', '.'),
-                        discount: $('#txt_discount').val(),
-                        isProductOfTheMonth: $('#chk_productOfTheMonth').is(':checked'),
-                    }, function(data) {
+                    update('product', $('#btn_submit').data('id'), data, function(data) {
                         if (data.status === 'ok') {
                             const category = $('#slt_categories').val();
                             const subcategories = $('#slt_subcategories').val();
@@ -370,10 +418,14 @@
                             $('#btn_submit').removeData('id');
                             $('#btn_submit').val('Cadastrar');
 
+                            $('#thumbnail').css('background-image', '');
+                            $('#thumbnail').css('background-image', '2px dashed #ddd');
+                            $('#camera-icon').css('display', 'block');
+
                             refreshProducts();
                             swal('Yay!', 'Produto atualizado com sucesso!', 'success');
                         }
-                    });
+                    }, true);
                 }
             });
 
